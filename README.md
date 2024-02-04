@@ -1,4 +1,4 @@
-# Ayzblog engine
+# Blog engine
 Blog engine for my personal blog at : [https://ayzminy.blog](https://ayzminy.blog). 
 
 ## What's in here ? 
