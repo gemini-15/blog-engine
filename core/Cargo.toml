@@ -1,0 +1,38 @@
+[package]
+edition = "2021"
+name = "ayzblog_core"
+version = "0.1.0"
+author = "Yass | Ayzminy"
+
+[dependencies]
+actix-files = "*"
+actix-web = "4.3.1"
+chrono = { version = "0.4.23", features = ["serde"] }
+dotenv = "*"
+glob = "*"
+log = "*"
+r2d2 = "0.8.10"
+serde_json = "1.0.88"
+yaml-front-matter = "*"
+futures = "0.3.25"
+anyhow = "1.0.68"
+actix-cors = "0.6.4"
+env_logger = "0.10.0"
+diesel_migrations = "2.1.0"
+
+[dependencies.diesel]
+features = ["postgres", "chrono", "r2d2", "uuid", "serde_json"]
+version = "2.0.2"
+
+[dependencies.serde]
+features = ["derive"]
+version = "1.0.147"
+
+[dependencies.uuid]
+features = ["v4", "fast-rng", "macro-diagnostics", "serde"]
+version = "1.2.2"
+
+[[bin]]
+name = "ayzblog_core"
+test = false
+bench = false
