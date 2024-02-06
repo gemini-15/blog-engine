@@ -39,7 +39,7 @@ DATABASE_URL="postgresql://blogdev:blogdev@127.0.0.1:5432/blogdb" RUST_LOG=info 
 
 ### App
 Specifying the React APP url env variable :
-the `app/blog/.env` file specifies the `REACT_APP_API_URL` which is set to contact the core a   t `http://127.0.0.1:8080/`.  
+the `app/blog/.env` file specifies the `REACT_APP_API_URL` which is set to communicate with the core at `http://127.0.0.1:8080/`.  
 
 Running the React app with npm run : 
 ```bash 
