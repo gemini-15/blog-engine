@@ -73,6 +73,13 @@ docker compose up
 ## If you find something not working/ Not done properly or any ideas to add 
 
 Create an issue please 😄 ! I'll take care of it ASAP!!
+Some of the things that I'm working on adding: 
+- [ ] Adding units tests for the API
+- [ ] Adding fuzzing targets as an example
+- [ ] Adding github workflow for transparency build with rust builder and SLSA
+- [ ] Implementing a search on the rendered articles (Must be optimized)
+- [ ] Tags filtering (Ongoing)
+
 
 
 
