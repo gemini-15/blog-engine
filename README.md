@@ -34,7 +34,7 @@ Running the core doing cargo run :
 DATABASE_URL="postgresql://blogdev:blogdev@127.0.0.1:5432/blogdb" RUST_LOG=info cargo run
 ```
 - `DATABASE_URL` must be specified. 
-- You can choose the log level with `RUST_LOG. 
+- You can choose the log level with `RUST_LOG`. 
 - `PORT` (Optional), can also be specified, default at 8080.
 
 ### App
