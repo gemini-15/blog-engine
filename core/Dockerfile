@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 
-ARG RUST_VERSION=1.73.0
+ARG RUST_VERSION=1.76.0
 ARG APP_NAME=ayzblog_core
 FROM rust:${RUST_VERSION}-slim-bullseye AS build
 ARG APP_NAME

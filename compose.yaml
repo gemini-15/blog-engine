@@ -1,28 +1,25 @@
 version: '3.9'
 
-secrets:
-  db-password:
-    file: db_secrets.txt
+
 services:
   postgres:
     image: postgres:15.2
     restart: always
-    user: postgres
     secrets:
       - db-password
-    # volumes:
-    #   - db-data:/var/lib/postgresql/data
+    volumes:
+      - ./data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=core
+      - POSTGRES_USER=core
       - POSTGRES_DB=core_db
-    healthcheck:
-      test: [ "CMD", "pg_isready"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    # healthcheck:
+    #   test: [ "CMD", "pg_isready"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
   core: 
     image: core-server:latest
     build:
@@ -30,7 +27,7 @@ services:
       target: final
     environment:
     - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    - POSTGRES_USER=postgres
+    - POSTGRES_USER=core
     - POSTGRES_DB=core_db
     ports:
       - 8080:8080
@@ -43,8 +40,12 @@ services:
     build:
       context: app/blog/
     environment:
-    - REACT_APP_API_URL=http://172.27.3.230:8080/
+    - REACT_APP_API_URL=https://thecapableone.ayzminy.blog/
     ports:
       - 3000:3000
     depends_on:
       - core
+      - postgres
+secrets:
+  db-password:
+    file: db_secrets.txt
