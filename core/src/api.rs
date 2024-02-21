@@ -119,6 +119,10 @@ struct TagsSelected {
 #[post("/tags")]
 pub async fn post_tags(db_pool: web::Data<DbPool>, tagsSelected: web::Json<TagsSelected>) -> Result<impl Responder>{
     // Search and filter all the articles ids with the tags selected
+    for tag in tagsSelected.tags {
+        
+    }
+
 
     Ok(web::Json({}))
 }
