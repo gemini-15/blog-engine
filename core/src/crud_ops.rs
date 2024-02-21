@@ -283,6 +283,9 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
 
 }
 
+pub fn search_tags(conn: &mut PgConnection, tags: Vec<String>) -> Result<Vec<Article>, anyhow::Error> {
+    
+}
 
 
 

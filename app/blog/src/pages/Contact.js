@@ -19,7 +19,7 @@ export default function Contact() {
 
 
     return(
-        <div className=" w-full h-[800px] pt-32 text-center space-y-6">
+        <div className=" w-full h-[800px] pt-32 mb-44 text-center space-y-6">
             <div className="text-white underline decoration-indigo-500 hover:decoration-indigo-800">
                 email : ayzminy@protonmail.com
                 <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 ml-4" onClick={handleClick}>{buttonText}</button>
