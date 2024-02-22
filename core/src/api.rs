@@ -19,7 +19,7 @@ use log;
             to be shown
 */
 #[get("/articles")]
-pub async fn fetch_articles(db_pool: web::Data<DbPool>) -> Result<impl Responder>{
+pub async fn fetch_articles(db_pool: web::Data<DbPool>) -> Result<impl Responder> {
     use crate::schema::articles::dsl::*;
 
     log::info!("[/articles] Requesting all articles.");
@@ -114,14 +114,19 @@ struct TagsSelected {
 }
 
 /**
- * Filter by tag
+ * Filter by tags
  */
 #[post("/tags")]
 pub async fn post_tags(db_pool: web::Data<DbPool>, tagsSelected: web::Json<TagsSelected>) -> Result<impl Responder>{
+    use crate::schema::tags::dsl::*;
+    use crate::schema::item_tag::dsl::*;
     // Search and filter all the articles ids with the tags selected
-    for tag in tagsSelected.tags {
+    let mut tags_selected = tagsSelected.tags.clone();
+    // searching for article id and matching with 
+    for tag in tags_selected {
         
     }
+
 
 
     Ok(web::Json({}))

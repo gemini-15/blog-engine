@@ -1,9 +1,9 @@
 use serde::{Serialize, Deserialize};
 use serde_json;
 use yaml_front_matter::{Document, YamlFrontMatter};
-use std::fs;
+use std::{collections::HashSet, fs};
 use glob::glob;
-use crate::db_connection::DbPool;
+use crate::{db_connection::DbPool, schema::item_tag::article_id};
 use actix_web::{web::{self}};
 use crate::models::{Article, Tag, TagItem};
 use diesel::{insert_into, PgConnection};
@@ -118,7 +118,7 @@ fn list_articles_directory(path: String) -> Vec<String> {
 
 
 /**
- * Insert an article metadata into database function
+ * Insert an article metadata into the database 
  */
 fn write_article(conn: &mut PgConnection, article_metadata: &MdMetadata, path_article_index: String) -> Article {
     use crate::schema::articles::dsl::*;
@@ -283,8 +283,23 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
 
 }
 
-pub fn search_tags(conn: &mut PgConnection, tags: Vec<String>) -> Result<Vec<Article>, anyhow::Error> {
-    
+
+/**
+ * Request article ids from a number of tags 
+ * Return the article ids 
+ */
+pub fn search_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
+    use crate::schema::tags::dsl::*;
+    use crate::schema::item_tag::dsl::*;
+    use std::collections::HashSet;
+
+    let article_ids: HashSet<i32> = HashSet::new();
+
+    for tag_selected in tags_filter {
+        let tag_id_selected = tags.filter(tag_name.eq(tag_selected)).select(id).load::<i32>(conn).expect("Database query failure.");
+    }
+
+    Ok(article_ids)
 }
 
 
