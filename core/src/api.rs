@@ -1,12 +1,12 @@
 
 // This api file defines the endpoints 
 // of the app which will serve as the RESTAPI
-use actix_web::{get, post, web, Error, Responder, Result};
+use actix_web::{get, post, web, Responder, Result};
 use chrono::Utc;
 use serde::{Serialize, Deserialize};
 use uuid::{Uuid};
-use crate::db_connection::DbPool;
-use diesel::{connection, prelude::*};
+use crate::{crud_ops::search_articles_from_tags, db_connection::DbPool};
+use diesel::{prelude::*};
 use std::{any, fs};
 use yaml_front_matter::{Document, YamlFrontMatter};
 use crate::crud_ops::{MdMetadata};
@@ -109,7 +109,7 @@ pub async fn get_tags(db_pool: web::Data<DbPool>) -> Result<impl Responder> {
 
 
 #[derive(Deserialize)]
-struct TagsSelected {
+pub struct TagsSelected {
     tags: Vec<String>,
 }
 
@@ -117,15 +117,12 @@ struct TagsSelected {
  * Filter by tags
  */
 #[post("/tags")]
-pub async fn post_tags(db_pool: web::Data<DbPool>, tagsSelected: web::Json<TagsSelected>) -> Result<impl Responder>{
-    use crate::schema::tags::dsl::*;
-    use crate::schema::item_tag::dsl::*;
+pub async fn post_tags(db_pool: web::Data<DbPool>, tags_selected: web::Json<TagsSelected>) -> Result<impl Responder>{
     // Search and filter all the articles ids with the tags selected
-    let mut tags_selected = tagsSelected.tags.clone();
+    let mut connection = db_pool.get().unwrap();
+    let  tags_selected = tags_selected.tags.clone();
     // searching for article id and matching with 
-    for tag in tags_selected {
-        
-    }
+    let article_ids = search_articles_from_tags(&mut connection, tags_selected).unwrap();
 
 
 

@@ -46,6 +46,7 @@ pub struct Tag {
 #[derive(Queryable, Debug, Insertable, Serialize, Deserialize, Clone)]
 #[diesel(table_name = item_tag)]
 pub struct TagItem {
-    pub tag_id: i32, 
-    pub article_id: i32, 
+    #[diesel(deserialize_as=i32)]
+    pub tag_id: Option<i32>, 
+    pub article_id: Option<i32>, 
 }

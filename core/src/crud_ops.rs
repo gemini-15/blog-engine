@@ -3,14 +3,13 @@ use serde_json;
 use yaml_front_matter::{Document, YamlFrontMatter};
 use std::{collections::HashSet, fs};
 use glob::glob;
-use crate::{db_connection::DbPool, schema::item_tag::article_id};
+use crate::{db_connection::DbPool};
 use actix_web::{web::{self}};
 use crate::models::{Article, Tag, TagItem};
-use diesel::{insert_into, PgConnection};
-use diesel::QueryDsl;
+use diesel::prelude::*;
+use diesel::*;
 use uuid::Uuid;
 use chrono::{DateTime, Utc};
-use diesel::{RunQueryDsl, ExpressionMethods};
 use log;
 
 /**
@@ -286,17 +285,17 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
 
 /**
  * Request article ids from a number of tags 
- * Return the article ids 
+ * Return the article ids in a HashSet for uniqueness
  */
-pub fn search_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
+pub fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
     use crate::schema::tags::dsl::*;
     use crate::schema::item_tag::dsl::*;
-    use std::collections::HashSet;
 
-    let article_ids: HashSet<i32> = HashSet::new();
+    let mut article_ids: HashSet<i32> = HashSet::new();
 
     for tag_selected in tags_filter {
-        let tag_id_selected = tags.filter(tag_name.eq(tag_selected)).select(id).load::<i32>(conn).expect("Database query failure.");
+        let article_ids_found = item_tag.inner_join(tags.on(tag_name.eq(tag_selected))).select(article_id).load::<i32>(conn)?;
+        article_ids.extend(article_ids_found);
     }
 
     Ok(article_ids)
