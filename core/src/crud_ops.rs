@@ -188,7 +188,7 @@ fn update_article(conn: &mut PgConnection, article_metadata: &MdMetadata, path_a
  * If True, the article will not be registered 
  * If false, we can register it
  */
-fn query_articles_by(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result<bool, diesel::result::Error> {
+fn query_articles_by_uid(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result<bool, diesel::result::Error> {
     use crate::schema::articles::dsl::*;
 
     let uid = article_metadata.uid;
@@ -204,6 +204,29 @@ fn query_articles_by(conn: &mut PgConnection, article_metadata: &MdMetadata) -> 
         Ok(false)
     }
 }
+
+#[derive(Queryable, Serialize, Debug)]
+struct ArticleReq {
+    uuid_article: Uuid,
+    title: String, 
+    chunk_content: String,
+    path_image: String, 
+    image_cont: String,
+    path_article: String,
+    pub_date: chrono::DateTime<Utc>, 
+    read_time: String,
+} 
+/**
+ * Query articles metadata by its ID (and not uuid) / usable to multiple article IDs at once
+ */
+pub fn query_article_by_id(conn: &mut PgConnection, article_ids: Vec<i32>) -> Result<Vec<ArticleReq>, anyhow::Error> {
+    use crate::schema::articles::dsl::*;
+
+    Ok(articles.filter(id.eq_any(article_ids))
+        .select((uuid, title, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
+        .load::<ArticleReq>(conn).expect("Database query failed."))
+}
+
 
 /**
  * Insert tags of the articles by retrieving it from the metadata
@@ -287,7 +310,7 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
  * Request article ids from a number of tags 
  * Return the article ids in a HashSet for uniqueness
  */
-pub fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
+fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
     use crate::schema::tags::dsl::*;
     use crate::schema::item_tag::dsl::*;
 
@@ -300,8 +323,6 @@ pub fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<Strin
 
     Ok(article_ids)
 }
-
-
 
 /**
  * Connect to DB and register the paths and metadata
@@ -323,7 +344,7 @@ pub async fn register_articles(db_pool: web::Data<DbPool>) {
         let mut article_data = MdArticle::init(article.clone());
         let article_data_offset = article_data.clone();
 
-        let article_exists = query_articles_by(&mut connection, &article_data.get_metadata());
+        let article_exists = query_articles_by_uid(&mut connection, &article_data.get_metadata());
 
         if !article_exists.unwrap() {
             articles.push(article_data_offset);

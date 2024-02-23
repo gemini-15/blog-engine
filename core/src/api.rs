@@ -5,7 +5,7 @@ use actix_web::{get, post, web, Responder, Result};
 use chrono::Utc;
 use serde::{Serialize, Deserialize};
 use uuid::{Uuid};
-use crate::{crud_ops::search_articles_from_tags, db_connection::DbPool};
+use crate::{crud_ops::{query_article_by_id, search_articles_from_tags}, db_connection::DbPool};
 use diesel::{prelude::*};
 use std::{any, fs};
 use yaml_front_matter::{Document, YamlFrontMatter};
@@ -67,20 +67,20 @@ pub async fn get_article(db_pool: web::Data<DbPool>, uuid_article: web::Path<Str
 
     #[derive(Queryable, Serialize, Debug)]
     struct ResponseArticle {
-        articlereq: Vec<ArticleReq>, 
+        articlereq: ArticleReq, 
         document_content: String, 
     }
 
     let parsed_uuid = Uuid::parse_str(&uuid_article.into_inner()).unwrap();
     let mut connection = db_pool.get().unwrap();
     log::info!("[/articles/{:?}] Requesting article.", parsed_uuid);
-    let article_queried = articles.filter(uuid.eq(parsed_uuid))
+    let article_queried: ArticleReq = articles.filter(uuid.eq(parsed_uuid))
         .select((uuid, title, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
-        .load::<ArticleReq>(&mut connection).expect("Database query failed.");
-    // TODO: Only the first element must be returned 
+        .first::<ArticleReq>(&mut connection).expect("Database query failed.");
+
     log::info!("article found : {:?}", article_queried);
 
-    let md_article = fs::read_to_string(article_queried[0].path_article.clone()).unwrap();
+    let md_article = fs::read_to_string(article_queried.path_article.clone()).unwrap();
     let document: Document<MdMetadata> = YamlFrontMatter::parse::<MdMetadata>(&md_article).unwrap();
 
     let response = ResponseArticle {
@@ -124,9 +124,17 @@ pub async fn post_tags(db_pool: web::Data<DbPool>, tags_selected: web::Json<Tags
     // searching for article id and matching with 
     let article_ids = search_articles_from_tags(&mut connection, tags_selected).unwrap();
 
+    match query_article_by_id(&mut connection, article_ids) {
+        Ok(articles_queried) => {
+            log::info!("The list of articles queried are : {:?}", articles_queried);
+            Ok(web::Json(articles_queried))
+        }
+        Err(e) => {
+            log::error!("The query of the article has failed.");
+            Err(actix_web::error::ErrorBadRequest(e))
+        }
+    }
 
-
-    Ok(web::Json({}))
 }
 
 
