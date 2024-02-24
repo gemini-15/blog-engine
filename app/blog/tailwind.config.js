@@ -12,7 +12,7 @@ module.exports = {
         secondary: "#E94B3C"
       },
       boxShadow: {
-        secondaryone: "0 0 1px #E94B3C , 0 0 5px #E94B3C"
+        secondaryone: "0 0 1px #686868 , 0 0 2px #686868"
       },
       screens: {
         xs: "480px",

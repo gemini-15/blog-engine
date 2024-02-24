@@ -124,7 +124,7 @@ pub async fn post_tags(db_pool: web::Data<DbPool>, tags_selected: web::Json<Tags
     // searching for article id and matching with 
     let article_ids = search_articles_from_tags(&mut connection, tags_selected).unwrap();
 
-    match query_article_by_id(&mut connection, article_ids) {
+    match query_article_by_id(&mut connection, article_ids.into_iter().collect()) {
         Ok(articles_queried) => {
             log::info!("The list of articles queried are : {:?}", articles_queried);
             Ok(web::Json(articles_queried))

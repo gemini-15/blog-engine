@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Markdown from 'react-markdown';
-import ProgressBar from "../components/ProgressBar";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {materialOceanic} from 'react-syntax-highlighter/dist/esm/styles/prism';
-
 
 
 const ArticleDisplay = (props) => {
@@ -12,8 +10,6 @@ const ArticleDisplay = (props) => {
     const [articleData, setArticleData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [articleUuid, setArticleUuid] = useState(props.uuid);
-
-    
 
     useEffect(() => {
         const fetchArticle = async () => {
@@ -25,7 +21,7 @@ const ArticleDisplay = (props) => {
                 
             } 
             catch (error) {
-                console.log(error); //TODO: error handling 
+                console.log(error);
             }
 
             setLoading(false);
@@ -34,13 +30,12 @@ const ArticleDisplay = (props) => {
         document.title = title;
 
         fetchArticle();
-        // changeTitle();
     }, [title]);
 
     return (
         <div>
             {loading && <div className="w-full h-screen"><div className='w-96 mt-4'>
-						<ProgressBar progressPercentage={60} /></div>
+						Loading</div>
 					</div>}
             {!loading && (
                 <div className="pt-20 pr-5 pl-5 sm:pr-80 sm:pl-80 md:pl-96 md:pr-96 text-gray-300 space-y-6">

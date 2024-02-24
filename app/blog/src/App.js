@@ -33,7 +33,7 @@ function App() {
       </Routes>
   </div>
   <div className="opacity-75 pt-56">
-  <FooterSvg />
+  {/* <FooterSvg /> */}
   </div>
   <div className='bg-secondary'>
     <Footer />

@@ -206,7 +206,7 @@ fn query_articles_by_uid(conn: &mut PgConnection, article_metadata: &MdMetadata)
 }
 
 #[derive(Queryable, Serialize, Debug)]
-struct ArticleReq {
+pub struct ArticleReq {
     uuid_article: Uuid,
     title: String, 
     chunk_content: String,
@@ -310,7 +310,7 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
  * Request article ids from a number of tags 
  * Return the article ids in a HashSet for uniqueness
  */
-fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
+pub fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
     use crate::schema::tags::dsl::*;
     use crate::schema::item_tag::dsl::*;
 

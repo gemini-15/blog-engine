@@ -22,20 +22,20 @@ const navLinks = [
 const Navbar = () => {
 
 	return (
-	<nav className="fixed backdrop-blur w-full z-10 top-0 left-0 border-b border-secondary">
+	<nav className="fixed backdrop-blur w-full z-10 top-0 left-0 border-b border-gray-800">
 		<div class="flex sm:flex-row items-center justify-center mx-auto w-full sm:min-h-[5vh] min-h-[5vh]">
 			<div className= "sm:gap-4 gap-4 sm:block sm:w-auto items-center justify-center" id="navbar-default">
 				<ul className='flex m-2 p-0 mt-3 rounded-lg sm:flex-row space-x-8 sm:mt-0 border-0 dark:border-gray-700'>
-					<li className="p-3 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-lg">
+					<li className="p-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md">
 						<Link to={"/"}>
 						Ayzminy.blog
 						</Link>
 					</li>
 					{navLinks.map((nav, index) => (
 					<li key={nav.name}
-						className="p-2">
-							<Link className="sm:block hover:rounded-md sm:p-1 hover:shadow-secondaryone border-secondary 
-							 bg-secondary hover:text-gray-100 duration-300 opacity-70 p-1 hover:opacity-90 font-extrabold" to={`${nav.link}`}>{nav.name}</Link>
+						className="p-3">
+							<Link className="sm:block hover:rounded-md sm:p-1 text-secondary hover:shadow-secondaryone border-secondary 
+							  hover:text-secondary hover:bg-gray-800 duration-300 opacity-70 p-3 hover:opacity-90 " to={`${nav.link}`}>{nav.name}</Link>
 						</li>
 					))}
 
