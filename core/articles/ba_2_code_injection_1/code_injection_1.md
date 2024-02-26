@@ -5,7 +5,7 @@ description: 'A first look into code injection techniques in binaries and analys
 tags: ['binary analysis series', 'binary analysis', 'code injection', 'elf']
 date: '2023-11-19T13:48:15+01:00'
 path_image: 'https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/resources/'
-image_cont: 'https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/opening_image.jpeg'
+image_cont: 'https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/demoninjector.webp'
 read_time: '9 min'
 ---
 
