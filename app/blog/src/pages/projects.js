@@ -25,7 +25,12 @@ export default function Projects() {
                     <ProjectCard projectUrl="https://api.github.com/repos/gemini-15/binary-analysis-hardcore-learning" />
                     <ProjectCard projectUrl="https://api.github.com/repos/gemini-15/pentest-hardcore-learning" />
 
-                </div>
+            </div>
+            <div className="text-white pl-5 sm:pl-40 pr-5 sm:pr-40">
+                    The source code of this blog can be found here : 
+                    <ProjectCard projectUrl="https://api.github.com/repos/gemini-15/blog-engine" />
+
+            </div>
 
         </div>
     )
