@@ -16,8 +16,8 @@ const ArticleDisplay = (props) => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}articles/${articleUuid}`);
                 setArticleData(response.data);
-                console.log(response.data.articlereq[0].title)
-                setTitle(response.data.articlereq[0].title);
+                console.log(response.data.articlereq.title)
+                setTitle(response.data.articlereq.title);
                 
             } 
             catch (error) {
@@ -40,7 +40,7 @@ const ArticleDisplay = (props) => {
             {!loading && (
                 <div className="pt-20 pr-5 pl-5 sm:pr-80 sm:pl-80 md:pl-96 md:pr-96 text-gray-300 space-y-6">
                 <div className="h-[500px] overflow-hidden flex items-center rounded-lg shadow-md shadow-gray-800">
-                    <img src={articleData.articlereq[0].image_cont} className="w-full object-contain rounded-lg"/>
+                    <img src={articleData.articlereq.image_cont} className="w-full object-contain rounded-lg"/>
                 </div>
                 <Markdown 
                     children={articleData.document_content}

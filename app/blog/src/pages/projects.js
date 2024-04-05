@@ -12,7 +12,7 @@ export default function Projects() {
     }); 
 
     return(
-        <div className="grid grid-cols-1 h-screen w-full mb-40 pt-32">
+        <div className="grid grid-cols-1 h-full w-full mb-40 pt-32">
             <div className="flex">
                 <h1 className="text-white pl-5 sm:pl-40 font-extrabold text-2xl underline decoration-indigo-500 hover:decoration-indigo-800">
                     Minutes and notes taking 
