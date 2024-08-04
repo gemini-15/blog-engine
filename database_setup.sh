@@ -25,4 +25,4 @@ openssl rand -hex 20 > db_secrets.txt
 docker run -e POSTGRES_USER=blogdev -e POSTGRES_DB=blogdb -e POSTGRES_PASSWORD=blogdev -p 5432:5432 postgres:latest
 
 
-
+export DATABASE_URL="postgresql://blogdev:blogdev@127.0.0.1:5432/blogdb" cargo run 
