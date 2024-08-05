@@ -31,7 +31,7 @@ const Navbar = () => {
 
 	return (
 	<nav className="flex fixed backdrop-blur w-full z-10 top-0 left-0 border-b border-gray-800">
-		<div className="flex m-2 mt-4 min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md">
+		<div className="flex ml-2 mx-auto min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md items-center justify-center">
 						<Link to={"/"}>
 						Ayzminy.blog
 						</Link>
@@ -60,7 +60,7 @@ const Navbar = () => {
 		<ul
 			className={
 			nav
-				? 'fixed right-0 top-0 h-full border-secondary ease-in-out duration-500 pr-3 mt-10 w-full text-center'
+				? 'fixed right-0 top-0 h-full border-secondary ease-in-out duration-500 pr-3 pl-3 mt-10 w-full text-center'
 				: 'ease-in-out duration-500 fixed right-0 hidden'
 			}
       	>
@@ -69,7 +69,7 @@ const Navbar = () => {
 			{navLinks.map(nav => (
 			<li
 				key={nav.name}
-				className='p-4 shadow-md duration-300 hover:text-black border-gray-600 backdrop-blur'
+				className='p-4 duration-300 border-[1px] m-[1px] border-gray-800 hover:text-black backdrop-blur'
 			>
 				<Link className="sm:block hover:rounded sm:p-1 text-secondary hover:shadow-secondaryone border-secondary 
 					hover:text-secondaryduration-300 opacity-70 p-3 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
