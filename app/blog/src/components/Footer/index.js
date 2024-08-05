@@ -3,13 +3,15 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <div className="p-8 grid grid-cols-2 gap-36">
-            <div className="text-xs  font-thin text-center">
-            You already know which year we are, why bother putting it here? <br /> (I hope you do!)
-            </div>
-            <div className="flex space-x-6">
-                <a href="https://github.com/gemini-15"><FaGithub className="text-primary" size={36}/></a>
-                <a href="https://www.linkedin.com/in/yass-99637a105/"><FaLinkedin className="text-primary" size={36}/></a>
+        <div className="bg-secondary p-8 bottom-0">
+            <div className="grid grid-cols-2">
+                <div className="text-xs font-thin text-center">
+                You already know which year we are, why bother putting it here? <br /> (I hope you do!)
+                </div>
+                <div className="flex space-x-6 justify-center">
+                    <a href="https://github.com/gemini-15"><FaGithub className="text-primary" size={36}/></a>
+                    <a href="https://www.linkedin.com/in/yass-99637a105/"><FaLinkedin className="text-primary" size={36}/></a>
+                </div>
             </div>
         </div>
     )

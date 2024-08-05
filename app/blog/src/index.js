@@ -8,7 +8,7 @@ import "@fontsource/fira-code";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <body className='bg-primary'>
+  <body className='bg-primary min-h-screen'>
   <React.StrictMode>
     <BrowserRouter>
       <App />

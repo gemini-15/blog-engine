@@ -18,23 +18,19 @@ function BlogArticle() {
 
 function App() {
   return (
-  <div>
-  <div className='bg-primary'>
-    <Navbar className="bg-primary" />
-      <Routes>
-        <Route path='/' exact element={<Articles />} />
-        <Route path='/notes' element={<Projects />} />
-        <Route path='/whoami' element={<Contact />} />
-        <Route path='/articles/:slug' element={<BlogArticle />}/>
-        <Route
-                    path="*"
-                    element={<NotFound />}
-                />
-      </Routes>
-  </div>
-  <div className='bg-secondary'>
+  <div className='flex flex-col bg-primary'>
+  <Navbar className="bg-primary" />
+    <Routes>
+      <Route path='/' exact element={<Articles />} />
+      <Route path='/notes' element={<Projects />} />
+      <Route path='/whoami' element={<Contact />} />
+      <Route path='/articles/:slug' element={<BlogArticle />}/>
+      <Route
+                  path="*"
+                  element={<NotFound />}
+              />
+    </Routes>
     <Footer />
-  </div>
   </div>
   );
 }
