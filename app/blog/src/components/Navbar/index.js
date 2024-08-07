@@ -31,14 +31,14 @@ const Navbar = () => {
 
 	return (
 	<nav className="flex fixed backdrop-blur w-full z-10 top-0 left-0 border-b border-gray-800">
-		<div className="flex ml-2 mx-auto min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md items-center justify-center">
+		<div className="flex ml-4 mx-auto min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						Ayzminy.blog
 						</Link>
 		</div>
 
 		{/* Desktop navigation */}
-		<div className= "hidden md:flex sm:flex-row sm:gap-4 gap-4 sm:w-auto items-center justify-center mx-auto w-full sm:min-h-[5vh] min-h-[5vh] sm:block md:w-auto" id="navbar-default">
+		<div className= "hidden md:flex sm:flex-row sm:gap-4 gap-4 sm:w-auto items-center justify-center mx-auto w-full sm:min-h-[5vh] min-h-[5vh] sm:block md:w-auto">
 				<ul className='flex m-2 p-0 mt-3 rounded-lg sm:flex-row space-x-8 sm:mt-0 border-0 dark:border-gray-700'>
 					{navLinks.map((nav, index) => (
 					<li key={nav.name}
@@ -52,7 +52,7 @@ const Navbar = () => {
 		</div>
 
 		{/* Mobile navigation */}
-		<div onClick={handleNav} className='fixed sm:hidden top-0 right-0 pr-3 pt-3'>
+		<div onClick={handleNav} className='fixed sm:hidden top-0 right-0 pr-3 pt-5'>
 			{nav ? <AiOutlineClose className='text-secondary' size={20} /> : <AiOutlineMenu className='text-secondary' size={20} />}
 		</div>
 
@@ -69,7 +69,7 @@ const Navbar = () => {
 			{navLinks.map(nav => (
 			<li
 				key={nav.name}
-				className='p-4 duration-300 border-[1px] m-[1px] border-gray-800 hover:text-black backdrop-blur'
+				className='p-4 duration-300 border-[1px] m-[1px] border-gray-800 hover:text-black bg-primary'
 			>
 				<Link className="sm:block hover:rounded sm:p-1 text-secondary hover:shadow-secondaryone border-secondary 
 					hover:text-secondaryduration-300 opacity-70 p-3 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
