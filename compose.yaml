@@ -23,7 +23,8 @@ services:
   core: 
     image: core-server:latest
     build:
-      context: core/
+      context: ./core/
+      dockerfile: Dockerfile
       target: final
     environment:
     - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
@@ -38,7 +39,8 @@ services:
   app:
     image: ayzblog-app:latest
     build:
-      context: app/blog/
+      context: ./app/
+      dockerfile: Dockerfile 
     environment:
     - REACT_APP_API_URL=https://thecapableone.ayzminy.blog/
     ports:
