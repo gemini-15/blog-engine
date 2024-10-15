@@ -1,0 +1,1 @@
+ALTER ROLE core SUPERUSER;

@@ -1,2 +1,3 @@
 db_secrets.txt
 blog_backend/.env
+data/

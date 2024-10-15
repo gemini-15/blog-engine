@@ -1,6 +1,5 @@
 version: '3.9'
 
-
 services:
   postgres:
     image: postgres:latest
@@ -9,17 +8,18 @@ services:
       - db-password
     volumes:
       - ./data:/var/lib/postgresql/data
+      - ./scripts_sql/:/docker-entrypoint-initdb.d/
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=core
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
       - POSTGRES_USER=core
       - POSTGRES_DB=core_db
-    # healthcheck:
-    #   test: [ "CMD", "pg_isready"]
-    #   interval: 10s
-    #   timeout: 5s
-    #   retries: 5
+    healthcheck:
+      test: [ "CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   core: 
     image: core-server:latest
     build:
@@ -27,15 +27,15 @@ services:
       dockerfile: Dockerfile
       target: final
     environment:
-    - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    - POSTGRES_USER=core
-    - POSTGRES_DB=core_db
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER=core
+      - POSTGRES_DB=core_db
     ports:
       - 8080:8080
     secrets:
       - db-password
     depends_on:
-      - postgres    
+      - postgres
   app:
     image: ayzblog-app:latest
     build:
