@@ -2,19 +2,18 @@ version: '3.9'
 
 services:
   postgres:
+    container_name: postgres
     image: postgres:latest
     restart: always
     secrets:
       - db-password
-    volumes:
-      - ./data:/var/lib/postgresql/data
-      - ./scripts_sql/:/docker-entrypoint-initdb.d/
     ports:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-      - POSTGRES_USER=core
+      - POSTGRES_USER=postgres
       - POSTGRES_DB=core_db
+      - PGDATA=/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready"]
       interval: 10s
@@ -28,13 +27,15 @@ services:
       target: final
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-      - POSTGRES_USER=core
+      - POSTGRES_USER=postgres
       - POSTGRES_DB=core_db
     ports:
       - 8080:8080
     secrets:
       - db-password
     depends_on:
+      - postgres
+    links:
       - postgres
   app:
     image: ayzblog-app:latest
