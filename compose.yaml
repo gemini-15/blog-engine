@@ -20,6 +20,7 @@ services:
       timeout: 5s
       retries: 5
   core: 
+    container_name: blog-core
     image: core-server:latest
     build:
       context: ./core/
@@ -38,6 +39,7 @@ services:
     links:
       - postgres
   app:
+    container_name: blog-app
     image: ayzblog-app:latest
     build:
       context: ./app/
