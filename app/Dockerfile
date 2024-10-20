@@ -18,11 +18,12 @@ FROM nginx:alpine3.20 as production
 
 ENV NODE_ENV production
 
+ENV REACT_APP_API_URL=https://thecapableone.ayzminy.blog/
+
 COPY --from=builder /app/build /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-
-EXPOSE 3000
+EXPOSE 8888
 # Command to run the application
 CMD ["nginx", "-g", "daemon off;"]

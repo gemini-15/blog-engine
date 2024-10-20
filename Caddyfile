@@ -1,0 +1,9 @@
+thelegendaryone.ayzminy.blog www.ayzminy.blog ayzminy.blog {
+    file_server
+    try_files {path} /index.html
+    reverse_proxy localhost:8888 
+}
+
+thecapableone.ayzminy.blog {
+    reverse_proxy localhost:4443
+}

@@ -31,7 +31,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=core_db
     ports:
-      - 8080:8080
+      - 4443:8080
     secrets:
       - db-password
     depends_on:
@@ -47,7 +47,7 @@ services:
     environment:
     - REACT_APP_API_URL=https://thecapableone.ayzminy.blog/
     ports:
-      - 3000:3000
+      - 8888:8888
     depends_on:
       - core
       - postgres
