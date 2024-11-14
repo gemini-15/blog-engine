@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    secrets:
+      - db-password
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=core_db
+      - PGDATA=/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  core: 
+    container_name: blog-core
+    image: core-server:latest
+    build:
+      context: ./core/
+      dockerfile: Dockerfile
+      target: final
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=core_db
+    ports:
+      - 4443:8080
+    secrets:
+      - db-password
+    depends_on:
+      - postgres
+    links:
+      - postgres
+  app:
+    container_name: blog-app
+    image: ayzblog-app:latest
+    build:
+      context: ./app/
+      dockerfile: Dockerfile 
+    environment:
+    - REACT_APP_API_URL=http://core:4443/
+    ports:
+      - 8888:8888
+    depends_on:
+      - core
+      - postgres
+secrets:
+  db-password:
+    file: db_secrets.txt

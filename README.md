@@ -67,7 +67,15 @@ openssl rand -hex 20 > db_secrets.txt
 ### Compose file 
 A docker compose file is available to run directly the postgres with the precedently created password, the core and the app :
 ```
-docker compose up
+docker compose -f compose.yaml build 
+docker compose -f compose.yaml up
+```
+
+For development purposes another compose file is available: 
+
+```
+docker compose -f compose.dev.yaml build 
+docker compose -f compose.dev.yaml up
 ```
 
 ## If you find something not working/ Not done properly or any ideas to add 
@@ -79,9 +87,5 @@ Some of the things that I'm working on adding:
 - [ ] Adding github workflow for transparency build with rust builder and SLSA
 - [ ] Implementing a search on the rendered articles (Must be optimized)
 - [ ] Tags filtering (Ongoing)
-
-
-
-
 
 
