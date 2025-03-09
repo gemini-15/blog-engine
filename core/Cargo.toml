@@ -36,3 +36,7 @@ version = "1.2.2"
 name = "ayzblog_core"
 test = false
 bench = false
+
+[dev-dependencies]
+proptest = "1.6.0"
+tempfile = "3.16.0"

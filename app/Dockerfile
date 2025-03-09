@@ -16,9 +16,11 @@ RUN npm run build
 
 FROM nginx:alpine3.20 as production
 
+ARG REACT_APP_API_URL
+
 ENV NODE_ENV production
 
-ENV REACT_APP_API_URL=https://thecapableone.ayzminy.blog/
+ENV REACT_APP_API_URL ${REACT_APP_API_URL}
 
 COPY --from=builder /app/build /usr/share/nginx/html
 

@@ -361,3 +361,118 @@ pub async fn register_articles(db_pool: web::Data<DbPool>) {
     }
 
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use proptest::prelude::*;
+    use tempfile::TempDir;
+    use std::fs::File;
+    use std::io::Write;
+
+    // Helper function to create a temporary markdown file with metadata
+    fn create_test_md_file(dir: &TempDir, metadata: &MdMetadata) -> std::io::Result<String> {
+        let file_path = dir.path().join("test_article.md");
+        let mut file = File::create(&file_path)?;
+        
+        let yaml_front_matter = format!(
+            "---\nuid: {}\ntitle: \"{}\"\ndescription: \"{}\"\ntags: {:?}\ndate: \"{}\"\npath_image: \"{}\"\nimage_cont: \"{}\"\nread_time: \"{}\"\n---\n\nTest content",
+            metadata.uid,
+            metadata.title,
+            metadata.description,
+            metadata.tags,
+            metadata.date,
+            metadata.path_image,
+            metadata.image_cont,
+            metadata.read_time
+        );
+        
+        file.write_all(yaml_front_matter.as_bytes())?;
+        Ok(file_path.to_string_lossy().into_owned())
+    }
+
+    // Strategy for generating valid MdMetadata
+    fn md_metadata_strategy() -> impl Strategy<Value = MdMetadata> {
+        let date_strategy = "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00";
+        
+        (
+            any::<i32>(),
+            "[A-Za-z0-9 ]{1,50}",
+            "[A-Za-z0-9 ]{1,200}",
+            prop::collection::vec("[A-Za-z0-9]{1,20}", 0..5),
+            date_strategy,
+            "[A-Za-z0-9/_.]{1,100}",
+            "[A-Za-z0-9 ]{1,100}",
+            "[0-9]{1,2} min",
+        ).prop_map(|(uid, title, desc, tags, date, path_img, img_cont, read)| {
+            MdMetadata {
+                uid,
+                title,
+                description: desc,
+                tags,
+                date,
+                path_image: path_img,
+                image_cont: img_cont,
+                read_time: read,
+            }
+        })
+    }
+
+    proptest! {
+        #[test]
+        fn test_md_article_init(metadata in md_metadata_strategy()) {
+            let temp_dir = TempDir::new().unwrap();
+            let file_path = create_test_md_file(&temp_dir, &metadata).unwrap();
+            
+            let article = MdArticle::init(file_path);
+            
+            prop_assert_eq!(article.metadata.uid, metadata.uid);
+            prop_assert_eq!(article.metadata.title, metadata.title);
+            prop_assert_eq!(article.metadata.description, metadata.description);
+            prop_assert_eq!(article.metadata.tags, metadata.tags);
+        }
+
+        #[test]
+        fn test_get_markdown_file(metadata in md_metadata_strategy()) {
+            let temp_dir = TempDir::new().unwrap();
+            let expected_path = create_test_md_file(&temp_dir, &metadata).unwrap();
+            
+            let found_path = get_markdown_file(temp_dir.path().to_string_lossy().into_owned());
+            
+            prop_assert!(!found_path.is_empty());
+            prop_assert!(found_path.ends_with(".md"));
+        }
+    }
+
+    #[test]
+    fn test_list_articles_directory() {
+        let temp_dir = TempDir::new().unwrap();
+        
+        // Create a few test directories
+        fs::create_dir(temp_dir.path().join("article1")).unwrap();
+        fs::create_dir(temp_dir.path().join("article2")).unwrap();
+        
+        let articles = list_articles_directory(temp_dir.path().to_string_lossy().into_owned());
+        
+        assert_eq!(articles.len(), 2);
+        assert!(articles.iter().all(|path| path.contains("article")));
+    }
+
+    #[test]
+    fn test_search_articles_from_tags() {
+        use diesel::r2d2::{self, ConnectionManager};
+        
+        // Setup test database connection
+        let manager = ConnectionManager::<PgConnection>::new("postgres://localhost/test_db");
+        let pool = r2d2::Pool::builder()
+            .build(manager)
+            .expect("Failed to create pool");
+        
+        let mut conn = pool.get().unwrap();
+        
+        let test_tags = vec!["test_tag1".to_string(), "test_tag2".to_string()];
+        let result = search_articles_from_tags(&mut conn, test_tags);
+        
+        assert!(result.is_ok());
+    }
+}
