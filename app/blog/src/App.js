@@ -7,7 +7,6 @@ import Articles from './pages/articles';
 import ArticleDisplay from './pages/ArticleDisplay';
 import Contact from './pages/Contact';
 import NotFound from './pages/notFound';
-import { ReactComponent as FooterSvg } from "./footer.svg";
 
 function BlogArticle() {
   let { slug } = useParams();
