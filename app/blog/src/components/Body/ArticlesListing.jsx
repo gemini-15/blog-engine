@@ -41,7 +41,7 @@ function ArticlesListing() {
             {!loading && (
             <div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid-rows-3'>
                 {articles.map(item => (
-                <div className="w-full h-96">
+                <div className="w-full">
                     <Link to={`articles/${item.uuid_article}`}>
                         <ArticleCont 
                             imageSrc={item.image_cont}

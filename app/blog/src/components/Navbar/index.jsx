@@ -9,10 +9,6 @@ const navLinks = [
 		link: "/",
 	},
 	{
-		name: "Notes",
-		link: "/notes", 
-	}, 
-	{
 		name: "Whoami", 
 		link: "/whoami",
 	}
@@ -30,19 +26,19 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="flex fixed backdrop-blur w-full z-10 top-0 left-0 border-b border-gray-800">
-		<div className="flex ml-4 mx-auto min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10 mt-3">
+	<nav className="flex fixed justify-center space-x-4 backdrop-blur w-full top-0 left-0 border-b border-gray-800">
+		<div className="flex mt-5 min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
 						</Link>
 		</div>
 
 		{/* Desktop navigation */}
-		<div className= "hidden md:flex sm:flex-row sm:gap-4 gap-4 sm:w-auto right-0 w-full sm:min-h-[5vh] min-h-[5vh] sm:block md:w-auto">
-				<ul className='flex m-2 p-0 mt-5 rounded-lg sm:flex-row space-x-8 sm:mt-0 border-0 dark:border-gray-700 pr-10'>
+		<div className= "md:flex sm:flex-row sm:w-auto sm:min-h-[5vh] min-h-[5vh] sm:block md:w-auto">
+				<ul className='flex justify-center mt-5 rounded-lg sm:flex-row space-x-8 sm:mt-0 border-0 dark:border-gray-700'>
 					{navLinks.map((nav, index) => (
 					<li key={nav.name}
-						className="pt-3">
+						className="pt-4">
 							<Link className="sm:block hover:rounded-md sm:p-1 text-secondary hover:shadow-secondaryone border-secondary 
 							  hover:text-secondary hover:bg-gray-800 duration-300 opacity-70 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
 						</li>

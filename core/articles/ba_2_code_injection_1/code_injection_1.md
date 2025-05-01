@@ -4,8 +4,8 @@ title: 'Deep dive into code injection (Part I)'
 description: 'A first look into code injection techniques in binaries and analysis.'
 tags: ['binary analysis series', 'binary analysis', 'code injection', 'elf']
 date: '2023-11-19T13:48:15+01:00'
-path_image: 'https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/resources/'
-image_cont: 'https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/demoninjector.webp'
+path_image: 'http://127.0.0.1:8080/static/ba_2_code_injection_1/resources/'
+image_cont: 'http://127.0.0.1:8080/static/ba_2_code_injection_1/demoninjector.webp'
 read_time: '9 min'
 ---
 
