@@ -39,9 +39,9 @@ function ArticlesListing() {
         <div>
             {loading &&  <div></div>}
             {!loading && (
-            <div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid-rows-3'>
+            <div className='grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 grid-rows-3'>
                 {articles.map(item => (
-                <div className="w-full">
+                <div>
                     <Link to={`articles/${item.uuid_article}`}>
                         <ArticleCont 
                             imageSrc={item.image_cont}

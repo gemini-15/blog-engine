@@ -26,15 +26,15 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="flex fixed justify-center space-x-4 backdrop-blur w-full top-0 left-0 border-b border-gray-800">
-		<div className="flex mt-5 min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10">
+	<nav className="flex sticky h-20 top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800">
+		<div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
 						</Link>
 		</div>
 
 		{/* Desktop navigation */}
-		<div className= "md:flex sm:flex-row sm:w-auto sm:min-h-[5vh] min-h-[5vh] sm:block md:w-auto">
+		<div className= "md:flex md:w-auto">
 				<ul className='flex justify-center mt-5 rounded-lg sm:flex-row space-x-8 sm:mt-0 border-0 dark:border-gray-700'>
 					{navLinks.map((nav, index) => (
 					<li key={nav.name}
@@ -56,7 +56,7 @@ const Navbar = () => {
 		<ul
 			className={
 			nav
-				? 'fixed right-0 top-0 h-full border-secondary ease-in-out duration-500 pr-3 pl-3 mt-10 w-full'
+				? 'fixed right-0 top-0  border-secondary ease-in-out duration-500 pr-3 pl-3 mt-10 w-full'
 				: 'ease-in-out duration-500 fixed right-0 hidden'
 			}
       	>

@@ -17,7 +17,7 @@ function BlogArticle() {
 
 function App() {
   return (
-  <div className='grid flex-col grid-rows-12'>
+  <div className='grid grid-rows-12'>
   <Navbar />
   <div className='row-span-11'>
     <Routes>
