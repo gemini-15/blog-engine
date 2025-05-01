@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config'
 import { transformWithEsbuild } from 'vite'
 import path from "path";
 import dotenv from "dotenv"; 
+import tailwindcss from "@tailwindcss/vite";
 
 dotenv.config(); 
 
@@ -34,7 +35,8 @@ export default defineConfig({
     });
     },
   },
-  react()
+  react(), 
+  tailwindcss()
   ].filter(Boolean),
   resolve: {
   alias: {
