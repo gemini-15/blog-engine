@@ -1,6 +1,10 @@
 import { defineConfig } from 'vitest/config'
 import { transformWithEsbuild } from 'vite'
 import path from "path";
+import dotenv from "dotenv"; 
+
+dotenv.config(); 
+
 
 import react from '@vitejs/plugin-react-swc'
 
@@ -38,7 +42,8 @@ export default defineConfig({
   },
   },
   define: {
-    'process.env': {}
+    'process.env': {}, 
+    "process.env.REACT_APP_API_URL": JSON.stringify(process.env.REACT_APP_API_URL),
   },
   test: {
     globals: true,

@@ -16,7 +16,7 @@ function initialArticleListing() {
 function ArticlesListing() {
     const [articles, setArticles] = useState(initialArticleListing);
     const [loading, setLoading] = useState(true);
-
+    console.log(process.env.REACT_APP_API_URL)
     let url_article_listing = process.env.REACT_APP_API_URL + 'articles';
     console.log(url_article_listing)
 
