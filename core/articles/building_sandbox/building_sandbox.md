@@ -1,17 +1,17 @@
 ---
 uid: 4
-title: 'An AI Agent sandbox for python code in WASM and Rust'
-description: 'Building an AI agent sandbox, why is it important and more.'
-tags: ['sandbox', 'AI agents', 'redteaming']
+title: 'State of AI and cybersecurity and what is next'
+description: ''
+tags: ['AI/ML', 'AI agents', 'security']
 date: '2025-04-10T03:48:00+01:00'
-path_image: 'https://gr1m0ire.xyz/static/'
-image_cont: 'https://gr1m0ire.xyz/static/'
+path_image: 'http://127.0.0.1:8080/static/'
+image_cont: 'http://127.0.0.1:8080/static/'
 read_time: '15 min'
 ---
 
-# An AI agent sandbox
+# State of AI security these days
 
 ## Some quick background 
-I've been working on securing AI systems for while now (3 years to be exact). I started working on deploying inference systems using confidential computing (on TEEs such as SGX, SEV-SNP and H100). Now I'm more exploring other interesting stuff. AI Agent security. 
+I've been working on securing AI systems for while now (3 years to be exact - yes, before chatGPT 😎). I started working in startup that worked on securing AI product tools  using confidential computing (on TEEs such as SGX, SEV-SNP and H100) with the goal to protect Model IP and . 
+And for the past year, I've been . AI security. 
 
-While trying to do some research on AI agent 

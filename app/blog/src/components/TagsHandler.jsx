@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function createInitialTags() {
-    const initialTags = []
-    initialTags.push("item 1")
-    return initialTags
-}
+
 
 const TagsHandler = () => {
-    const [tags, setTags] = useState(createInitialTags);
+    const [tags, setTags] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
 
     useEffect(() => {

@@ -17,8 +17,9 @@ function BlogArticle() {
 
 function App() {
   return (
-  <div className='flex flex-col bg-primary'>
-  <Navbar className="bg-primary" />
+  <div className='grid grid-rows-12'>
+  <Navbar />
+  <div className='row-span-11'>
     <Routes>
       <Route path='/' exact element={<Articles />} />
       <Route path='/notes' element={<Projects />} />
@@ -29,7 +30,8 @@ function App() {
                   element={<NotFound />}
               />
     </Routes>
-    <Footer />
+    </div>
+    <Footer className='row-span-1'/>
   </div>
   );
 }

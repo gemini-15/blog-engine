@@ -4,6 +4,11 @@
 
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #2C2C34;
+  --color-secondary: #A8B4A5;
+}
+
 body {
   margin: 0;
   font-family: "Fira code";
