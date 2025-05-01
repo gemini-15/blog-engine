@@ -33,7 +33,7 @@ const Navbar = () => {
 	<nav className="flex fixed backdrop-blur w-full z-10 top-0 left-0 border-b border-gray-800">
 		<div className="flex ml-4 mx-auto min-h-[5vh] p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10 mt-3">
 						<Link to={"/"}>
-						Ayzminy.blog
+						gr1m0ire.xyz
 						</Link>
 		</div>
 

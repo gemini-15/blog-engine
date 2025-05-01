@@ -6,7 +6,7 @@ import {materialOceanic} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 
 const ArticleDisplay = (props) => {
-    const [title, setTitle] = useState("Ayzminy | Home");
+    const [title, setTitle] = useState("gr1m0ire |");
     const [articleData, setArticleData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [articleUuid, setArticleUuid] = useState(props.uuid);

@@ -7,13 +7,17 @@ import ArticleCont from "../articleContainer";
  * Component that list the articles present on the database 
  * 
  */
+function initialArticleListing() {
+    const initialArticle = []
+    initialArticle.push("item 1")
+    return initialArticle
+}
 
 function ArticlesListing() {
-    const [articles, setArticles] = useState([]);
+    const [articles, setArticles] = useState(initialArticleListing);
     const [loading, setLoading] = useState(true);
-
+    
     let url_article_listing = process.env.REACT_APP_API_URL + 'articles';
-    console.log(url_article_listing)
 
     useEffect(() => {
         const fetchListArticles = async () => {
@@ -22,7 +26,7 @@ function ArticlesListing() {
                 setArticles(response.data);
             }
             catch (error) {
-                 console.error(error); // TODO: must be changed to something better
+                 console.error(error); 
             }
             setLoading(false); 
         };
