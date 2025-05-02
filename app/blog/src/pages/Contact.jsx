@@ -20,7 +20,7 @@ export default function Contact() {
 
 
     return(
-        <div className="grid grid-cols-2 pl-5 pt-32 mb-44 space-y-6">
+        <div className="grid md:grid-cols-2 grid-cols-1 pl-5 pt-20 mb-44 space-y-6">
             
             <div className="pt-20 sm:pl-40 text-white underline decoration-indigo-500 hover:decoration-indigo-800">
             <div className="flex">
@@ -57,7 +57,9 @@ export default function Contact() {
                 I'm trying to post technicals things around my findings in here to be less confused.<br />
                 But it doesn't work. <br />
                 Might as well be confused together !<br />
-                Hope you enjoy the articles !  
+                Hope you enjoy the articles !  <br /><br /><br />
+
+                [ PS : The code for this blog is available here : <a className="text-secondary" href="https://github.com/gemini-15/blog-engine">https://github.com/gemini-15/blog-engine</a> ]
                 </div>
             </div>
 

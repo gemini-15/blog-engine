@@ -17,9 +17,9 @@ function BlogArticle() {
 
 function App() {
   return (
-  <div className='grid grid-rows-12'>
+  <div className='grid grid-flow-row'>
   <Navbar />
-  <div className='row-span-11'>
+  <div>
     <Routes>
       <Route path='/' exact element={<Articles />} />
       <Route path='/notes' element={<Projects />} />
@@ -31,7 +31,7 @@ function App() {
               />
     </Routes>
     </div>
-    <Footer className='row-span-1'/>
+    <Footer />
   </div>
   );
 }
