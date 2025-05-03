@@ -26,7 +26,7 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="flex sticky h-20 top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800">
+	<nav className="bg-primary flex sticky h-20 top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800">
 		<div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
