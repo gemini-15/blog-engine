@@ -14,7 +14,7 @@ fn setup_routes(cfg: &mut web::ServiceConfig) -> &mut web::ServiceConfig {
             get_tags,
         ))
         .service(
-            fs::Files::new("/static", "./articles")
+            fs::Files::new("/", "./articles")
             .use_last_modified(true),
         )
 

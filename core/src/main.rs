@@ -27,10 +27,9 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("./migrations/");
 async fn main() -> std::result::Result<(), std::io::Error> {
     // Init logger 
     env_logger::init();
-
-    // must be change for docker 
+ 
     dotenv().ok();
-    let port = env::var("PORT").unwrap_or("8080".to_string());
+    let port = env::var("PORT").unwrap_or("8000".to_string());
 
     let mut listen_address: String = "0.0.0.0:".to_owned();
     listen_address.push_str(&port);

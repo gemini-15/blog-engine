@@ -31,7 +31,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=core_db
     ports:
-      - 4443:8080
+      - 4443:8000
     secrets:
       - db-password
     depends_on:

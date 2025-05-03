@@ -26,7 +26,7 @@ const TagsHandler = () => {
     return (
         <div className="pb-5 hidden sm:block">
             {tags.map(item => (
-                <span class="bg-gray-800 text-gray-200 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-700">{item}</span>
+                <span className="bg-gray-800 text-gray-200 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-700">{item}</span>
             ))}
         </div>
     )
