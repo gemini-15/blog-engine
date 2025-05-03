@@ -5,7 +5,7 @@ use actix_web::{get, post, web, Responder, Result};
 use chrono::Utc;
 use serde::{Serialize, Deserialize};
 use uuid::{Uuid};
-use crate::{crud_ops::{query_article_by_id, search_articles_from_tags}, db_connection::DbPool};
+use crate::{crud_ops::{query_article_by_id, search_articles_from_tags}, db_connection::DbPool, schema::articles::path_article};
 use diesel::{prelude::*};
 use std::{any, fs};
 use yaml_front_matter::{Document, YamlFrontMatter};
@@ -27,6 +27,7 @@ pub async fn fetch_articles(db_pool: web::Data<DbPool>) -> Result<impl Responder
     struct ListArticlesReq {
         uuid_article: Uuid,
         title: String, 
+        file_name: String,
         chunk_content: String,
         path_image: String, 
         image_cont: String,
@@ -36,7 +37,7 @@ pub async fn fetch_articles(db_pool: web::Data<DbPool>) -> Result<impl Responder
 
     let mut connection = db_pool.get().unwrap();
 
-    let list_articles = articles.select((uuid, title, chunk_content, path_image, image_cont, pub_date, read_time))
+    let list_articles = articles.select((uuid, title, file_name,  chunk_content, path_image, image_cont, pub_date, read_time))
         .order(pub_date.desc())
         .load::<ListArticlesReq>(&mut connection).expect("Database query failed.");
     
@@ -49,14 +50,62 @@ pub async fn fetch_articles(db_pool: web::Data<DbPool>) -> Result<impl Responder
 //     params : uuid
 //     result : reroute to the body of the article present in the DB 
 // */
-#[get("/articles/{uuid_article}")]
-pub async fn get_article(db_pool: web::Data<DbPool>, uuid_article: web::Path<String>) -> Result<impl Responder> {
+// #[get("/articles_uuid/{uuid_article}")]
+// pub async fn get_article(db_pool: web::Data<DbPool>, uuid_article: web::Path<String>) -> Result<impl Responder> {
+//     use crate::schema::articles::dsl::*;
+    
+//     #[derive(Queryable, Serialize, Debug)]
+//     struct ArticleReq {
+//         uuid_article: Uuid,
+//         title: String, 
+//         chunk_content: String,
+//         path_image: String, 
+//         image_cont: String,
+//         path_article: String,
+//         pub_date: chrono::DateTime<Utc>, 
+//         read_time: String,
+//     } 
+
+//     #[derive(Queryable, Serialize, Debug)]
+//     struct ResponseArticle {
+//         articlereq: ArticleReq, 
+//         document_content: String, 
+//     }
+
+//     let parsed_uuid = Uuid::parse_str(&uuid_article.into_inner()).unwrap();
+//     let mut connection = db_pool.get().unwrap();
+//     log::info!("[/articles/{:?}] Requesting article.", parsed_uuid);
+//     let article_queried: ArticleReq = articles.filter(uuid.eq(parsed_uuid))
+//         .select((uuid, title, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
+//         .first::<ArticleReq>(&mut connection).expect("Database query failed.");
+
+//     log::info!("article found : {:?}", article_queried);
+
+//     let md_article = fs::read_to_string(article_queried.path_article.clone()).unwrap();
+//     let document: Document<MdMetadata> = YamlFrontMatter::parse::<MdMetadata>(&md_article).unwrap();
+
+//     let response = ResponseArticle {
+//         articlereq: article_queried, 
+//         document_content: document.content
+//     };
+
+//     Ok(web::Json(response))
+// }
+
+// /*
+// function for getting an article based on the path sent on the request
+//     params : path
+//     result : reroute to the body of the article present in the DB 
+// */
+#[get("/articles/{filename}")]
+pub async fn get_article(db_pool: web::Data<DbPool>, filename: web::Path<String>) -> Result<impl Responder> {
     use crate::schema::articles::dsl::*;
     
     #[derive(Queryable, Serialize, Debug)]
     struct ArticleReq {
         uuid_article: Uuid,
         title: String, 
+        file_name: String,
         chunk_content: String,
         path_image: String, 
         image_cont: String,
@@ -71,11 +120,12 @@ pub async fn get_article(db_pool: web::Data<DbPool>, uuid_article: web::Path<Str
         document_content: String, 
     }
 
-    let parsed_uuid = Uuid::parse_str(&uuid_article.into_inner()).unwrap();
+    // let parsed_uuid = Uuid::parse_str(&uuid_article.into_inner()).unwrap();
     let mut connection = db_pool.get().unwrap();
-    log::info!("[/articles/{:?}] Requesting article.", parsed_uuid);
-    let article_queried: ArticleReq = articles.filter(uuid.eq(parsed_uuid))
-        .select((uuid, title, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
+    log::info!("[/articles/{:?}] Requesting article.", filename);
+    let filename = filename.into_inner();
+    let article_queried: ArticleReq = articles.filter(file_name.eq(filename))
+        .select((uuid, title, file_name, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
         .first::<ArticleReq>(&mut connection).expect("Database query failed.");
 
     log::info!("article found : {:?}", article_queried);
@@ -90,6 +140,7 @@ pub async fn get_article(db_pool: web::Data<DbPool>, uuid_article: web::Path<Str
 
     Ok(web::Json(response))
 }
+
 
 
 /**

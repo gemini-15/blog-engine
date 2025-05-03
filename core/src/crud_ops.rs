@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
 use serde_json;
+use std::path::Path;
 use yaml_front_matter::{Document, YamlFrontMatter};
 use std::{collections::HashSet, fs};
 use glob::glob;
-use crate::{db_connection::DbPool};
+use crate::{db_connection::DbPool, schema::articles::file_name};
 use actix_web::{web::{self}};
 use crate::models::{Article, Tag, TagItem};
 use diesel::prelude::*;
@@ -84,18 +85,20 @@ impl MdArticle {
 /**
  * Find markdown file in directory and extract metadata
  */
-fn get_markdown_file(article_directory: String) -> String {
+fn get_markdown_file(article_directory: String) -> (String, String) {
     let mut article_path: String = article_directory.to_owned();
     article_path.push_str("/*.md");
     let mut path_to_file = String::from("");
+    let mut filename = String::from("");
     for entry in glob(&article_path).expect("Failed to read glob pattern") {
         path_to_file = match entry {
             Ok(path) => path.to_str().unwrap().to_owned(),
             Err(_e) => String::from(""),
         };
+    filename = Path::new(&path_to_file).file_name().unwrap().to_str().unwrap().to_owned().split(".").collect::<Vec<&str>>()[0].to_string();    
     };
     log::info!("The path to the file is : {:?}", path_to_file);
-    path_to_file
+    (path_to_file, filename)
 }
 
 /**
@@ -119,7 +122,7 @@ fn list_articles_directory(path: String) -> Vec<String> {
 /**
  * Insert an article metadata into the database 
  */
-fn write_article(conn: &mut PgConnection, article_metadata: &MdMetadata, path_article_index: String) -> Article {
+fn write_article(conn: &mut PgConnection, article_metadata: &MdMetadata, path_article_index: String, filename: String) -> Article {
     use crate::schema::articles::dsl::*;
     // find if another file is present
     // extracting the insertion model
@@ -128,6 +131,7 @@ fn write_article(conn: &mut PgConnection, article_metadata: &MdMetadata, path_ar
     // Creating new article instance structure
     let new_article =  Article {
         id: Some(article_metadata.uid), 
+        file_name: filename,
         title: article_metadata.title.clone(), 
         path_image: article_metadata.path_image.clone(), 
         path_article: path_article_index.clone(), 
@@ -340,7 +344,7 @@ pub async fn register_articles(db_pool: web::Data<DbPool>) {
 
     let mut articles = Vec::new();
     for article_directory in path_articles_list {
-        let article = get_markdown_file(article_directory.clone());
+        let (article, filename) = get_markdown_file(article_directory.clone());
         let mut article_data = MdArticle::init(article.clone());
         let article_data_offset = article_data.clone();
 
@@ -348,7 +352,7 @@ pub async fn register_articles(db_pool: web::Data<DbPool>) {
 
         if !article_exists.unwrap() {
             articles.push(article_data_offset);
-            let new_article = write_article(&mut connection, &article_data.get_metadata(), article.clone());
+            let new_article = write_article(&mut connection, &article_data.get_metadata(), article.clone(), filename);
             log::info!("New article registered : {:?}", new_article);
         } else {
             log::warn!("Article already registered on the database.");

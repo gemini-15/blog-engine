@@ -17,6 +17,7 @@ pub struct Article {
     #[diesel(deserialize_as=i32)]
     pub id: Option<i32>,
     pub uuid: uuid::Uuid,
+    pub file_name: String, 
     pub title: String, 
     pub path_image: String, 
     pub path_article: String, 

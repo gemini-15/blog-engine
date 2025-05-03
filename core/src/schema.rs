@@ -5,6 +5,7 @@ diesel::table! {
         id -> Int4,
         uuid -> Uuid,
         title -> Varchar,
+        file_name -> Varchar,
         path_image -> Varchar,
         path_article -> Varchar,
         image_cont -> Varchar,

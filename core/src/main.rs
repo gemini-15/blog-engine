@@ -15,6 +15,8 @@ pub mod db_connection;
 pub mod init;
 pub mod schema;
 pub mod models;
+pub mod error;
+pub mod metrics;
 
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("./migrations/");
 

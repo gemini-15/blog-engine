@@ -42,7 +42,7 @@ function ArticlesListing() {
             <div className='grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 grid-rows-3'>
                 {articles.map(item => (
                 <div>
-                    <Link to={`articles/${item.uuid_article}`}>
+                    <Link to={`articles/${item.file_name}`}>
                         <ArticleCont 
                             imageSrc={item.image_cont}
                             title={item.title}
