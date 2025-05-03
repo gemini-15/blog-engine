@@ -51,7 +51,7 @@ export default function Contact() {
                 <br />
 
                 Wait you wanna know things about me ? Well, I'm a AI Security engineer.<br />
-                I've been working in AI security for three years no, since I started working for a startup trying to secure AI inference and training.<br />
+                I've been working in AI security for three years now, since I started working for a startup trying to secure AI inference and training.<br />
 
                 And in cybersecurity itself a little bit more.<br />
                 I'm trying to post technicals things around my findings in here to be less confused.<br />
