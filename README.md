@@ -9,7 +9,7 @@ The ORM used is [diesel](https://diesel.rs/) combined to [r2d2](https://github.c
 It implements the following features :
 - Registers an Article metadata on the database.
 - Listing all registered articles.
-- Requesting a registered article via its `uuid`.
+- Requesting a registered article via its name.
 
 ### App
 The app is a React app. 
