@@ -1,9 +1,9 @@
-thelegendaryone.ayzminy.blog www.ayzminy.blog ayzminy.blog {
+www.gr1m0ire.xyz tartarus.gr1m0ire.xyz gr1m0ire.xyz {
     file_server
     try_files {path} /index.html
     reverse_proxy localhost:8888 
 }
 
-thecapableone.ayzminy.blog {
+core.gr1m0ire.xyz {
     reverse_proxy localhost:4443
 }
