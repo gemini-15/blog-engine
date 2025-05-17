@@ -4,8 +4,8 @@ title: 'Deep dive into code injection (Part I)'
 description: 'A first look into code injection techniques in binaries and analysis.'
 tags: ['binary analysis series', 'binary analysis', 'code injection', 'elf']
 date: '2023-11-19T13:48:15+01:00'
-path_image: 'http://127.0.0.1:8080/static/ba_2_code_injection_1/resources/'
-image_cont: 'http://127.0.0.1:8080/static/ba_2_code_injection_1/demoninjector.webp'
+path_image: 'https://core.gr1m0ire.xyz/ba_2_code_injection_1/resources/'
+image_cont: 'https://core.gr1m0ire.xyz/ba_2_code_injection_1/demoninjector.webp'
 read_time: '9 min'
 ---
 
@@ -25,7 +25,7 @@ So, while I am exploring binary analysis as a whole, let's get into code injecti
 The ELF format (either designed for 32-bit or 64 bit) is composed of the following components. 
 > there is a lot of things on the ELF format, so i might voluntarily miss some things but there is a lot of books that explains things in depth. One of them you can find here :  [https://www.cs.cmu.edu/afs/cs/academic/class/15213-f00/docs/elf.pdf](https://www.cs.cmu.edu/afs/cs/academic/class/15213-f00/docs/elf.pdf) and the definition of the elf header can be found at the following location : `/usr/include/elf.h`
 
-![ELF format](https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/resources/elf_format.png)
+![ELF format](https://core.gr1m0ire.xyz/ba_2_code_injection_1/resources/elf_format.png)
 
 - ***An executable header :*** Mostly identifies the binary as an ELF file, what kind and gives the location of the other contents. 
 - ***a series of program headers*** : in short, a bunch of sections bundled together. Program headers provide an execution view essential for shared object files and executable files.
@@ -150,7 +150,7 @@ As explained in the ELF spec, `PT_NOTE` is an array element that specifies the l
 
 In other words, it doesn't serve any purpose for us and we can overwrite as if it was your brother's game save progress ! ✌️
 
-![Save progress](https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/resources/save_file.png)
+![Save progress](https://core.gr1m0ire.xyz/ba_2_code_injection_1/resources/save_file.png)
 
 ### What needs to be changed ? 
 
@@ -176,7 +176,7 @@ From this useless trio (just kidding, they have a purpose, but it just does not 
 Let's suppose that the sketch below represents our binary. 
 The `PT_NOTE` segment and the `.note.ABI-tag` are called as follows : 
 
-![Sketch PT_NOTE](https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/resources/pt_note.png)
+![Sketch PT_NOTE](https://core.gr1m0ire.xyz/ba_2_code_injection_1/resources/pt_note.png)
 
 The entry point defines the access to the binary. For example, we can change the address to point to another address in the binary to start the execution somewhere else. 
 
@@ -189,7 +189,7 @@ And the section header defines the section and their properties.
 
 **We want to injected a new section at the end of the binary.** This part is the easiest, because we just have to search for the end of the binary file, and add an injected code in the end. Pretty much like this: 
 
-![Binary with injected code](https://thecapableone.ayzminy.blog/static/ba_2_code_injection_1/resources/binary_injected.png)
+![Binary with injected code](https://core.gr1m0ire.xyz/ba_2_code_injection_1/resources/binary_injected.png)
 
 
 

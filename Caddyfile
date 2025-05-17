@@ -1,9 +1,12 @@
+{
+    admin 0.0.0.0:2020
+}
 www.gr1m0ire.xyz tartarus.gr1m0ire.xyz gr1m0ire.xyz {
-    file_server
-    try_files {path} /index.html
-    reverse_proxy localhost:8888 
+	file_server
+	try_files {path} /index.html
+	reverse_proxy localhost:8888
 }
 
 core.gr1m0ire.xyz {
-    reverse_proxy localhost:4443
+	reverse_proxy localhost:4443
 }

@@ -38,7 +38,7 @@ const ArticleDisplay = (props) => {
 						Loading</div>
 					</div>}
             {!loading && (
-                <div className="grid justify-items-center text-gray-300">
+                <div className="grid justify-items-center text-gray-300 leading-12">
                 <img className="object-cover md:h-200 h-100 md:w-300 w-150 aspect-auto rounded-lg shadow-md shadow-gray-800" src={articleData.articlereq.image_cont} />
                 <div className="md:pr-60 md:pl-60 wrap-break-word max-w-screen">
                     <Markdown 
