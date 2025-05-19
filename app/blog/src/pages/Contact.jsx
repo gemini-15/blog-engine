@@ -5,7 +5,7 @@ export default function Contact() {
     const [buttonText, setButtonText] = useState('Copy');
  
     const handleClick = () => {
-        navigator.clipboard.writeText('ayzminy@protonmail.com');
+        navigator.clipboard.writeText('yassine.bargach@protonmail.com');
 
         setButtonText(buttonText === 'Copy' ? 'Copied' : 'Copy');
     };
@@ -13,7 +13,7 @@ export default function Contact() {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         const changeTitle = async () => {
 
-            document.title = "Ayzminy | Whoami"; 
+            document.title = "gr1m0ire.xyz | Whoami"; 
         }
         changeTitle();
     }); 
@@ -22,13 +22,13 @@ export default function Contact() {
     return(
         <div className="grid md:grid-cols-2 grid-cols-1 pl-5 pt-20 mb-44 space-y-6">
             
-            <div className="pt-20 sm:pl-40 text-white underline decoration-indigo-500 hover:decoration-indigo-800">
+            <div className="pt-20 sm:pl-40 text-black underline decoration-secondary hover:decoration-secondary">
             <div className="flex">
-                    <h1 className="text-white pb-5 font-extrabold text-2xl underline decoration-indigo-500 hover:decoration-indigo-800">Contact</h1>
+                    <h1 className="text-black pb-5 font-extrabold text-2xl underline decoration-secondary hover:decoration-secondary">Contact</h1>
             </div>
                 <div>
                     email : yassine.bargach@protonmail.com
-                    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 ml-4" onClick={handleClick}>
+                    <button type="button" className="text-white bg-secondary hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 ml-4" onClick={handleClick}>
                         {buttonText}
                     </button>
                 </div>
@@ -42,9 +42,9 @@ export default function Contact() {
 
             <div>
                 <div className="flex">
-                    <h1 className="text-white pb-5 sm:pl-40 pt-20 font-extrabold text-2xl underline decoration-indigo-500 hover:decoration-indigo-800">Whoami?</h1>
+                    <h1 className="text-black pb-5 sm:pl-40 pt-20 font-extrabold text-2xl underline decoration-secondary hover:decoration-secondary">Whoami?</h1>
                 </div>
-                <div className="text-gray-500 pr-5 sm:pl-40 sm:pr-40">
+                <div className="text-black pr-5 sm:pl-40 sm:pr-40">
                 Hey there curious fella 🤓! <br /><br />
                 Welcome to my personal blog. I've always wanted to do one.<br />
                 Better late than never! <br /> <br />

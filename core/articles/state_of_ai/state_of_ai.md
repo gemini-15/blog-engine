@@ -1,6 +1,6 @@
 ---
 uid: 3
-title: 'the state of LLM security'
+title: 'The State of LLM Security'
 description: 'general introduction to LLM security. Exploring vulnerability scanners and explaining AI supply chain attacks.'
 tags: ['LLM', 'Agentic AI', 'cybersecurity']
 date: '2025-05-17T03:48:00+01:00'
@@ -9,7 +9,7 @@ image_cont: 'https://core.gr1m0ire.xyz/state_of_ai/state_of_ai.png'
 read_time: '12 min'
 ---
 
-# the state of LLM security 
+# The State of LLM Security 
 
 ## About me
 
@@ -30,14 +30,14 @@ While research on LLM security is relatively new, research on ML model security 
 > "Membership inference attacks (MIAs) aim to predict whether a particular record belongs to the training dataset of a given model." from the paper above.
 > A training Epoch is defined as the number of iterations of all the training data. 
 
-However, other types of attacks inherited from the old good days of Machine Learning still works, for instance, the one and only, data and model poisoning. 
+However, other types of attacks inherited from the good old days of Machine Learning still works, for instance, the one and only, data and model poisoning. 
 
 
 ### Defining a security threat model
 
-In the end, it all goes back to defining a threat model for your AI system. What do you want to protect - Is it the model ? The data ? The infrastructure - *When using a RAG with proprietary data for example*?  
+In the end, it all goes back to defining a threat model for your AI system. What do you want to protect - Is it the model? The data? The infrastructure - *When using a RAG with proprietary data for example*?  
 
-Each company or entity could have its own requirements depending on what service they offer. For example, if a company serves a chat model that accesses internal company data, it might more important than the model itself.
+Each company or entity could have its own requirements depending on what service they offer. For example, if a company serves a chat model that accesses internal company data, it might be more important than the model itself.
 
 
 ## Current solutions and workarounds 
@@ -45,7 +45,7 @@ Each company or entity could have its own requirements depending on what service
 
 ### Securing LLMs through vulnerability scanner
 
-Many interesting tools have been developed over the last few years to protect against, prompt injection, jailbreaking, data leakage, hallucinations and so on.
+Many interesting tools have been developed over the last few years to protect against prompt injection, jailbreaking, data leakage, hallucinations and so on.
 
 One of the most interesting vulnerability scanners is [Garak](https://docs.garak.ai/garak). 
 
@@ -58,7 +58,7 @@ We are going to test a Qwen model for coding [Qwen2.5-Coder-1.5B-Instruct](https
 The results are really interesting : 
 ![garak findings](https://core.gr1m0ire.xyz/state_of_ai/garak_1.png)
 
-garak's different probes show that there multiple failing points, and interestingly enough, the DAN variations that fails, here a snippet of `dan.Dan_11_0` : 
+Garak's different probes show that there are multiple failing points in the model's security defenses. Particularly concerning are the DAN variations that failed the security tests. Here's a snippet of `dan.Dan_11_0` that successfully jailbroke the model: 
 
 ```json
 {
@@ -78,30 +78,29 @@ garak's different probes show that there multiple failing points, and interestin
 }
 ```
 
-We might indeed think that when we are running this type of model, in normal circumstances where running this model locally it would not necessarely be a problem.  
+We might think that when running this type of model locally under normal circumstances, these vulnerabilities would not necessarily be a problem.  
 
-Now, let's imagine we use a model found on HuggingFace like qwen coder with an agent architecture that runs the generated code and that might have access to other ressources. If we're able to bypass the protective measures on the model to run whatever code we want (generate malware or act as a C2 server etc...) that would not be that safe now would it? 
+However, consider a scenario where we use a model found on HuggingFace like Qwen Coder within an agent architecture that runs the generated code and has access to other resources. If an attacker is able to bypass the protective measures on the model to run arbitrary code (generating malware or acting as a command-and-control server), this creates a significant security risk. The potential impact moves beyond just jailbreaking to actually executing malicious operations on your systems.
 
 ### Being aware of poisoning attacks => Being aware of AI supply chain attacks 
 
-Model and data poisoning might be the consequense of supply chain vulnerabilities. 
+Model and data poisoning are often the consequence of supply chain vulnerabilities. 
 
-A model might be altered through its training data. If the data is not enough validated, it might contain a backdoor that could alter the outputs of a model (in a bad way obviously). **Anthropic** even wrote a paper on having [sleeper Agents where you could have backdoored LLMs that persist through safety training.](https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training)
+A model might be altered through its training data. If the data is not properly validated, it might contain a backdoor that could alter the outputs of a model in harmful ways. **Anthropic** even wrote a paper on [sleeper Agents where you could have backdoored LLMs that persist through safety training](https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training). This research shows how difficult it can be to detect and remove these types of vulnerabilities once they're embedded in a model.
 
-And when we talked about backdoored models, they could also lead to a remote code execution (RCE) - [Even meta has these issues](https://www.csoonline.com/article/3810362/a-pickle-in-metas-llm-code-could-allow-rce-attacks.html). 
+When we talk about backdoored models, they could also lead to remote code execution (RCE) vulnerabilities - [Even Meta has faced these issues](https://www.csoonline.com/article/3810362/a-pickle-in-metas-llm-code-could-allow-rce-attacks.html). 
 
-*But what's the link with supply chain attacks?* Well, if you are not an AI company that has a lot of servers and GPU and a good team... well you surely just took a pre-trained model from huggingface as everybody else. While we usually trust Model providers to deliver safe models, we cannot really know for sure it is except if we verify the datasets and the algorithms. 
+*What's the link with supply chain attacks?* If you're not an AI company with substantial server and GPU resources and a specialized security team, you've likely used a pre-trained model from HuggingFace like most practitioners. While we generally trust model providers to deliver safe models, we cannot be certain without verifying the datasets and algorithms ourselves.
 
-> BIG WARNING : We have to be aware of what we take from huggingface even if it is in safetensor format (made to be safer than pytorch's pickle and others for example). This is necessary for models BUT ALSO for datasets. 
+> **WARNING**: We must be aware of what we download from HuggingFace, even if it's in safetensor format (which is designed to be safer than formats like PyTorch's pickle). This caution is necessary for both models AND datasets.
 
-To resolve the AI supply chain issues, I don't personally think that is it feasable through detections systems or safety training AFTER the model has been trained. Because as by the **Anthropic** research it resists those mechanisms.
+To address AI supply chain issues, detection systems or safety training AFTER the model has been trained are likely insufficient. As shown by **Anthropic's** research, malicious capabilities can resist these protective mechanisms.
 
-One way still remains by building verifiable ML models using tools such as [model transparency](https://github.com/sigstore/model-transparency) by the **Google team** or a AI Bill of Material (AI BOM) tool that we've built we my team last year called [AI cert](https://github.com/mithril-security/aicert). 
+A more promising approach lies in building verifiable ML models using tools such as [model transparency](https://github.com/sigstore/model-transparency) developed by the **Google team**, or AI Bill of Materials (AI BOM) tools like [AI cert](https://github.com/mithril-security/aicert) that we've built with my team last year. These tools provide a way to verify the provenance and integrity of models before deployment, helping to establish a more secure AI supply chain.
 
 
 ## References 
 - *Do Membership Inference Attacks Work on Large Language Models?* : [https://arxiv.org/pdf/2402.07841](https://arxiv.org/pdf/2402.07841)
-- *garak : LLM vulnerability scanner* - Leon Derczynski, NVIDIA : [https://github.com/NVIDIA/garak](https://github.com/NVIDIA/garak)
+- *garak: LLM vulnerability scanner* - Leon Derczynski, NVIDIA : [https://github.com/NVIDIA/garak](https://github.com/NVIDIA/garak)
 - *Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training* - Anthropic : [https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training](https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training)
-- *A pickle in Meta’s LLM code could allow RCE attacks* - csoonline.com : [https://www.csoonline.com/article/3810362/a-pickle-in-metas-llm-code-could-allow-rce-attacks.html](https://www.csoonline.com/article/3810362/a-pickle-in-metas-llm-code-could-allow-rce-attacks.html)
-
+- *A pickle in Meta's LLM code could allow RCE attacks* - csoonline.com : [https://www.csoonline.com/article/3810362/a-pickle-in-metas-llm-code-could-allow-rce-attacks.html](https://www.csoonline.com/article/3810362/a-pickle-in-metas-llm-code-could-allow-rce-attacks.html)

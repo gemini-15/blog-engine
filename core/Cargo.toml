@@ -2,7 +2,7 @@
 edition = "2021"
 name = "ayzblog_core"
 version = "0.1.0"
-author = "Yass | Ayzminy"
+author = "Yass | gr1m0ire.xyz"
 
 [dependencies]
 actix-files = "*"

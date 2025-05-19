@@ -38,9 +38,9 @@ const ArticleDisplay = (props) => {
 						Loading</div>
 					</div>}
             {!loading && (
-                <div className="grid justify-items-center text-gray-300 leading-20 align-middle">
-                <img className="object-cover md:h-100 h-50 md:w-300 w-150 aspect-auto rounded-lg shadow-md shadow-gray-800" src={articleData.articlereq.image_cont} />
-                <div className="md:pr-60 md:pl-60 wrap-break-word max-w-screen">
+                <div className="grid justify-items-center text-black leading-20 align-middle">
+                <img className="object-cover mt-4 mb-4 md:h-100 h-50 md:w-300 w-150 aspect-auto rounded-lg shadow-md shadow-gray-800" src={articleData.articlereq.image_cont} />
+                <div className="md:pr-60 md:pl-60 pl-5 pr-5 wrap-break-word max-w-screen">
                     <Markdown 
                         children={articleData.document_content}
                         components={{
@@ -58,7 +58,7 @@ const ArticleDisplay = (props) => {
                                     />
 
                                 ) : (
-                                    <code {...rest} className="text-white">
+                                    <code {...rest} className="text-black">
                                     {children}
                                     </code>
                                 )
@@ -67,8 +67,8 @@ const ArticleDisplay = (props) => {
                             h1(props) {
                                 const {children, className, node, ...rest} = props
                                 return (
-                                    <h1 className="text-white text-center antialiased 
-                                    font-black underline break-words decoration-indigo-500 hover:decoration-indigo-800 sm:text-2xl text-sm">
+                                    <h1 className="uppercase text-black text-center antialiased 
+                                    font-black underline break-words leading-20 decoration-secondary sm:text-2xl text-sm">
                                         {children}
                                     </h1>
                                 )
@@ -77,8 +77,8 @@ const ArticleDisplay = (props) => {
                             h2(props) {
                                 const {children, className, node, ...rest} = props
                                 return (
-                                    <h2 className="text-white antialiased underline decoration-indigo-500 hover:decoration-indigo-800
-                                    font-black break-words sm:text-xl text-sm">
+                                    <h2 className="text-black antialiased underline decoration-secondary hover:decoration-secondary
+                                    font-black break-words sm:text-xl leading-20 text-sm">
                                         {children}
                                     </h2>
                                 )
@@ -87,8 +87,8 @@ const ArticleDisplay = (props) => {
                             h3(props) {
                                 const {children, className, node, ...rest} = props
                                 return (
-                                    <h3 className="antialiased text-gray-400  
-                                    font-black break-words sm:text-lg text-sm">
+                                    <h3 className="antialiased text-gray-900  
+                                    font-black break-words sm:text-lg leading-20 text-sm">
                                         {children}
                                     </h3>
                                 )
@@ -97,8 +97,8 @@ const ArticleDisplay = (props) => {
                             h4(props) {
                                 const {children, className, node, ...rest} = props
                                 return (
-                                    <h4 className="antialiased text-gray-400  
-                                    font-black break-words sm:text-[16px] text-sm">
+                                    <h4 className="antialiased text-gray-900 
+                                    font-black break-words sm:text-[16px] leading-20 text-sm">
                                         {children}
                                     </h4>
                                 )
@@ -108,7 +108,7 @@ const ArticleDisplay = (props) => {
                                 const {children, className, node, ...rest} = props
                                 return (
                                     <p className="antialiased
-                                sm:text-[16px] text-sm leading-8">
+                                sm:text-[16px] text-sm leading-12">
                                         {children}
                                     </p>
                                 )
@@ -118,7 +118,7 @@ const ArticleDisplay = (props) => {
                                 const {children, className, node, ...rest} = props
                                 return (
                                     <li className="antialiased 
-                                sm:text-[16px] text-sm indent-8 list-disc list-inside leading-8">
+                                sm:text-[16px] text-sm indent-8 list-disc list-inside leading-12">
                                         {children}
                                     </li>
                                 )
@@ -137,14 +137,14 @@ const ArticleDisplay = (props) => {
                                 const {children, className, node, ...rest} = props
                                 return (
                                     <a className="antialiased
-                                sm:text-[16px] text-sm leading-8 text-purple-700" href={rest.href}>{children}</a>
+                                sm:text-[16px] text-sm leading-12 text-blue-900" href={rest.href}>{children}</a>
                                 )
                             },
 
                             blockquote(props) {
                                 const {children, className, node, ...rest} = props
                                 return (
-                                    <blockquote className="p-4 my-4 border-s-4 border-gray-600 bg-gray-500 dark:border-gray-500 dark:bg-gray-800">{children}</blockquote>
+                                    <blockquote className="p-4 my-4 border-s-4 border-gray-900 bg-secondary opacity-90 text-white ">{children}</blockquote>
                                 )
                             },
                         }}

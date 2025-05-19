@@ -26,8 +26,8 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="bg-primary flex sticky h-20 top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800">
-		<div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-secondary text-md pr-10">
+	<nav className="bg-secondary flex sticky h-20 top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800 text-lg">
+		<div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-white text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
 						</Link>
@@ -39,8 +39,8 @@ const Navbar = () => {
 					{navLinks.map((nav, index) => (
 					<li key={nav.name}
 						className="pt-4">
-							<Link className="sm:block hover:rounded-md sm:p-1 text-secondary hover:shadow-secondaryone border-secondary 
-							  hover:text-secondary hover:bg-gray-800 duration-300 opacity-70 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
+							<Link className="sm:block hover:rounded-md rounded-md sm:p-1 text-primary hover:shadow-secondaryone border-gray-900 
+							  hover:text-secondary hover:bg-primary duration-300 opacity-70 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
 						</li>
 					))}
 
@@ -65,9 +65,9 @@ const Navbar = () => {
 			{navLinks.map(nav => (
 			<li
 				key={nav.name}
-				className='p-4 duration-300 border-[1px] m-[1px] border-gray-800 hover:text-black bg-primary'
+				className='p-4 duration-300 border-[1px] m-[1px] border-gray-800 hover:text-white bg-secondary'
 			>
-				<Link onClick={handleNav} className="sm:block hover:rounded sm:p-1 text-secondary hover:shadow-secondaryone border-secondary 
+				<Link onClick={handleNav} className="sm:block hover:rounded sm:p-1 text-white hover:shadow-amber-50 border-secondary 
 					hover:text-secondary duration-300 opacity-70 p-3 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
 			</li>
 			))}

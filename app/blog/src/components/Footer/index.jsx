@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <div className="bg-secondary p-8 bottom-0">
             <div className="grid grid-cols-2">
-                <div className="text-xs font-thin text-center">
+                <div className="text-xs font-thin text-center text-primary">
                 You already know which year we are, why bother putting it here? <br /> (I hope you do!)
                 </div>
                 <div className="flex space-x-6 justify-center">

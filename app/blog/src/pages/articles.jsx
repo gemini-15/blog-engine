@@ -7,7 +7,7 @@ const Articles = () => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         const changeTitle = async () => {
 
-            document.title = "Ayzminy | Home";
+            document.title = "gr1m0ire.xyz | Home";
         }
 
         changeTitle();

@@ -5,7 +5,7 @@ export default function Projects() {
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         const changeTitle = async () => {
-            document.title = "Ayzminy | Who's behind this awesomeness 🤙"; 
+            document.title = "gr1m0ire.xyz | Who's behind this awesomeness 🤙"; 
         }
 
         changeTitle();
