@@ -25,7 +25,7 @@ In this post, I'll share a practical overview of the protective measures needed 
 
 Since the emergence of Large Language Models, we've seen particular risks with machine learning models as they've become more accessible through interfaces and APIs. That led to discovering new ways to exploit the intended functioning of those models, hence new problems such as prompt injection. 
 
-While research on LLM security is relatively new, research on ML model security more broadly is not. While LLMs are a subset of Machine Learning, they are not subject to the same attacks. For example Membership Inference Attacks are [not really applicable in LLMs](https://arxiv.org/pdf/2402.07841) because the training dataset are MASSIVE and the number of training Epochs for pre-trained models. 
+While research on LLM security is relatively new, research on ML model security more broadly is not. While LLMs are a subset of Machine Learning, they are not subject to the same attacks. For example Membership Inference Attacks are [not really applicable in LLMs](https://arxiv.org/pdf/2402.07841) because the training datasets are MASSIVE and the number of training Epochs for pre-trained models is low. 
 
 > "Membership inference attacks (MIAs) aim to predict whether a particular record belongs to the training dataset of a given model." from the paper above.
 > A training Epoch is defined as the number of iterations of all the training data. 

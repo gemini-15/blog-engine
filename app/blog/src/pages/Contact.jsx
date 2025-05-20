@@ -20,7 +20,7 @@ export default function Contact() {
 
 
     return(
-        <div className="grid md:grid-cols-2 grid-cols-1 pl-5 pt-20 mb-44 space-y-6">
+        <div className="grid md:grid-cols-2 grid-cols-1 pl-5 pt-20 mb-44 pb-20 space-y-6">
             
             <div className="pt-20 sm:pl-40 text-black underline decoration-secondary hover:decoration-secondary">
             <div className="flex">
