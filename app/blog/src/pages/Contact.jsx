@@ -20,14 +20,14 @@ export default function Contact() {
 
 
     return(
-        <div className="grid md:grid-cols-2 grid-cols-1 pl-5 pt-20 mb-44 pb-20 space-y-6">
+        <div className="grid md:grid-cols-2 grid-cols-1 pl-5 pt-20 mb-44 pb-24 space-y-6">
             
             <div className="pt-20 sm:pl-40 text-black underline decoration-secondary hover:decoration-secondary">
             <div className="flex">
                     <h1 className="text-black pb-5 font-extrabold text-2xl underline decoration-secondary hover:decoration-secondary">Contact</h1>
             </div>
                 <div>
-                    email : yassine.bargach@protonmail.com
+                    email : yassine.bargach@proton.me
                     <button type="button" className="text-white bg-secondary hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 ml-4" onClick={handleClick}>
                         {buttonText}
                     </button>

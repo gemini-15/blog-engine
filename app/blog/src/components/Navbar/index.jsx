@@ -26,7 +26,7 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="bg-primary flex sticky h-20 top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800 text-lg">
+	<nav className="bg-primary flex sticky h-auto top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800 text-lg">
 		{/* <div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
@@ -35,16 +35,16 @@ const Navbar = () => {
 
 		{/* Desktop navigation */}
 		<div className= "md:flex md:w-auto">
-				<ul className='flex justify-center mt-5 rounded-lg sm:flex-row space-x-8 sm:mt-0'>
-					<li className="pt-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-secondary text-md pr-10">
+				<ul className='flex justify-center rounded-lg sm:flex-row space-x-8 sm:mt-0 pt-4 pb-4'>
+					<li className="bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
 						</Link>
 					</li>
 					{navLinks.map((nav, index) => (
 					<li key={nav.name}
-						className="pt-4">
-							<Link className="sm:block hover:rounded-md pr-2 pl-2 border text-md border-secondary rounded-md sm:p-1 text-secondary
+						className="">
+							<Link className="sm:block pr-2 pl-2 border text-md border-secondary rounded sm:p-1 text-secondary
 							   bg-primary duration-300 hover:opacity-90" to={`${nav.link}`}>  {nav.name}  </Link>
 						</li>
 					))}
