@@ -9,28 +9,29 @@ image_cont: 'https://core.gr1m0ire.xyz/sandboxing_python_code/sand.png'
 read_time: '10 min'
 ---
 
-# The importance of sandboxing in AI agents 
+# The importance of sandboxing and access control in AI agents 
 
-The importance of sandboxing in AI agents have been in my mind for some time now. And a recent RCE unauth flaw in LangFlow gave me the assurance that it is something that should be thought of.
+Recently, a good number of AI agents are failing and in some cases getting exploited, due to a lack of sandboxing and access control. 
+We can recall :
+- g
 
-So let's deep dive into it. 
 
 ## Why, what and how? 
 
 Running arbitrary code is never a good idea. But sometimes we need to. In the case of Agentic AI, it became clear that running code will be necessary to build workflows with self-evaluation and feedback. 
 
-But it's not just about dealing with running arbitrary code, it's also how to securely interact the filesystem, network, and other applications. 
+But it's not just about dealing with running arbitrary code, it's also about how to secure interactions with the filesystem, network, and other applications. 
 
-The inpredictability of LLMs. 
+The unpredictability of LLMs makes it difficult to resolve the issue solely by using safety measures.  
 
-The objective of this article is to show some ways to run Python code in a controlled environment. The running code might not be necessary to be ran server-side. Also we need to have control on the dependencies that we import beforehand.  
 
-> 
 
-## The ways to do it 
-I will be presenting 2 ways to achieve the same purpose. Depending on the architecture that you have in mind or suits you better. 
+## Current security measures implemented
+Classifiers, guardrails and other detection systems have been developped to response to prompt injection. 
 
-- Using containers : In cybersecurity, and especially in malware analysis, we've had some prior knowledge of how to sandbox
+These protective measures have an advantage in resolving the issue for most cases. 
+In my last article 
+
 
 
 ## references
