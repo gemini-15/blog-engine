@@ -5,7 +5,7 @@ use actix_web::{get, post, web, Responder, Result};
 use chrono::Utc;
 use serde::{Serialize, Deserialize};
 use uuid::{Uuid};
-use crate::{crud_ops::{query_article_by_id, search_articles_from_tags}, db_connection::DbPool, schema::articles::path_article};
+use crate::{crud_ops::{query_article_by_id, search_articles_from_tags, debug_tag_relationships}, db_connection::DbPool, schema::articles::path_article};
 use diesel::{prelude::*};
 use std::{any, fs};
 use yaml_front_matter::{Document, YamlFrontMatter};
@@ -174,7 +174,7 @@ pub async fn post_tags(db_pool: web::Data<DbPool>, tags_selected: web::Json<Tags
     let  tags_selected = tags_selected.tags.clone();
     // searching for article id and matching with 
     let article_ids = search_articles_from_tags(&mut connection, tags_selected).unwrap();
-
+    println!("The article ids are : {:?}", article_ids);
     match query_article_by_id(&mut connection, article_ids.into_iter().collect()) {
         Ok(articles_queried) => {
             log::info!("The list of articles queried are : {:?}", articles_queried);
@@ -201,3 +201,4 @@ pub async fn post_tags(db_pool: web::Data<DbPool>, tags_selected: web::Json<Tags
             - must be through localhost only. 
 
  */
+

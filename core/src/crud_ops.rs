@@ -213,6 +213,7 @@ fn query_articles_by_uid(conn: &mut PgConnection, article_metadata: &MdMetadata)
 pub struct ArticleReq {
     uuid_article: Uuid,
     title: String, 
+    file_name: String,
     chunk_content: String,
     path_image: String, 
     image_cont: String,
@@ -227,7 +228,7 @@ pub fn query_article_by_id(conn: &mut PgConnection, article_ids: Vec<i32>) -> Re
     use crate::schema::articles::dsl::*;
 
     Ok(articles.filter(id.eq_any(article_ids))
-        .select((uuid, title, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
+        .select((uuid, title, file_name, chunk_content, path_image, image_cont, path_article, pub_date, read_time))
         .load::<ArticleReq>(conn).expect("Database query failed."))
 }
 
@@ -286,20 +287,29 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
             log::info!("{:?}", new_tag_item_insert);
         }
         else {
-            // Tag found 
+            // Tag found - need to create relationship if it doesn't exist
             log::warn!("tag already in the DB : {:?}", tag_found);
-            let tagitem_tag_id: i32 =  tag_found[0].id.unwrap();
-            // Verifying that the tag is referenced
-            match item_tag.filter(tag_id.eq(tagitem_tag_id)).limit(1).select(article_id).load::<i32>(conn) {
-                Ok(tagitem_article_id) => {
-                    // Tag is referenced
-                    log::info!("Tag Item is referenced : {:?}", tagitem_article_id);
-                }   
-                Err(err) =>  {
-                    // Tag is not referenced
-                    // TODO: Adding referencing when there is update of other
-                    log::info!("Tag Item is not referenced");
-                }
+            let tagitem_tag_id: i32 = tag_found[0].id.unwrap();
+            
+            // Check if this article is already linked to this tag
+            let existing_relationship = item_tag
+                .filter(tag_id.eq(tagitem_tag_id))
+                .filter(article_id.eq(post_id))
+                .limit(1)
+                .select(article_id)
+                .load::<i32>(conn)?;
+            
+            if existing_relationship.is_empty() {
+                // Create the relationship between article and existing tag
+                log::info!("Creating relationship between article {} and existing tag {}", post_id, tag);
+                let new_tag_item = TagItem {
+                    tag_id: Some(tagitem_tag_id),
+                    article_id: Some(post_id),
+                };
+                let _ = insert_into(item_tag).values(&new_tag_item).execute(conn);
+                log::info!("Relationship created successfully");
+            } else {
+                log::info!("Relationship already exists between article {} and tag {}", post_id, tag);
             }
         }
 
@@ -313,19 +323,75 @@ fn insert_tags(conn: &mut PgConnection, article_metadata: &MdMetadata) -> Result
 /**
  * Request article ids from a number of tags 
  * Return the article ids in a HashSet for uniqueness
+ * Implements AND logic: articles must have ALL selected tags
  */
 pub fn search_articles_from_tags(conn: &mut PgConnection, tags_filter: Vec<String>) -> Result<HashSet<i32>, anyhow::Error> {
     use crate::schema::tags::dsl::*;
     use crate::schema::item_tag::dsl::*;
 
+    if tags_filter.is_empty() {
+        return Ok(HashSet::new());
+    }
+
     let mut article_ids: HashSet<i32> = HashSet::new();
+    let mut is_first_tag = true;
 
     for tag_selected in tags_filter {
-        let article_ids_found = item_tag.inner_join(tags.on(tag_name.eq(tag_selected))).select(article_id).load::<i32>(conn)?;
-        article_ids.extend(article_ids_found);
+        let mut article_ids_found = Vec::new();
+        let tag_id_articles = tags.filter(tag_name.eq(tag_selected)).select(id).load::<i32>(conn)?;
+        for tag_id_article in tag_id_articles {
+            article_ids_found.extend(item_tag
+                .filter(tag_id.eq(tag_id_article))
+                .select(article_id)
+                .load::<i32>(conn)?);
+        }
+
+        if is_first_tag {
+            // For the first tag, initialize with all matching articles
+            article_ids.extend(article_ids_found.into_iter().collect::<HashSet<i32>>());
+            is_first_tag = false;
+        } else {
+            // For subsequent tags, keep only articles that have THIS tag too (AND logic)
+            let current_article_ids: HashSet<i32> = article_ids_found.into_iter().collect();
+            article_ids = article_ids.intersection(&current_article_ids).cloned().collect();
+        }
     }
 
     Ok(article_ids)
+}
+
+/**
+ * Debug function to check what tags are actually linked to articles
+ */
+pub fn debug_tag_relationships(conn: &mut PgConnection) -> Result<(), anyhow::Error> {
+    use crate::schema::{tags, item_tag, articles};
+    use crate::schema::tags::dsl::*;
+    use crate::schema::item_tag::dsl::*;
+    use crate::schema::articles::dsl::*;
+
+    log::info!("=== DEBUG: Tag Relationships ===");
+    
+    // Get all tags
+    let all_tags: Vec<Tag> = tags::table.load(conn)?;
+    log::info!("Total tags in database: {}", all_tags.len());
+    
+    for tag in &all_tags {
+        let tag_id_val = tag.id.unwrap();
+        let tag_name_val = &tag.tag_name;
+        
+        // Get articles linked to this tag
+        let linked_articles = item_tag::table
+            .filter(item_tag::tag_id.eq(tag_id_val))
+            .inner_join(articles::table.on(articles::id.eq(item_tag::article_id)))
+            .select((articles::id, articles::title))
+            .load::<(i32, String)>(conn)?;
+        
+        log::info!("Tag '{}' (ID: {}) is linked to {} articles: {:?}", 
+                   tag_name_val, tag_id_val, linked_articles.len(), linked_articles);
+    }
+    
+    log::info!("=== END DEBUG ===");
+    Ok(())
 }
 
 /**

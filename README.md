@@ -86,6 +86,6 @@ Some of the things that I'm working on adding:
 - [ ] Adding fuzzing targets as an example
 - [ ] Adding github workflow for transparency build with rust builder and SLSA
 - [ ] Implementing a search on the rendered articles (Must be optimized)
-- [ ] Tags filtering (Ongoing)
+- [X] Tags filtering (DONE)
 
 

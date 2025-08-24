@@ -1,7 +1,7 @@
 use actix_web::{web};
 use actix_files as fs;
 
-use crate::api::{fetch_articles, get_article, get_tags};
+use crate::api::{fetch_articles, get_article, get_tags, post_tags};
 
 /**
  * Setup routes 
@@ -12,6 +12,7 @@ fn setup_routes(cfg: &mut web::ServiceConfig) -> &mut web::ServiceConfig {
             fetch_articles,
             get_article,
             get_tags,
+            post_tags,
         ))
         .service(
             fs::Files::new("/", "./articles")
