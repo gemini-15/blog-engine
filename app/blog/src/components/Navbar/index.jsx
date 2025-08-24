@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { NavLink as Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import DarkModeToggle from '../DarkModeToggle';
 
 
 const navLinks = [
@@ -26,7 +27,7 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="bg-primary flex sticky h-auto top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-800 text-lg">
+	<nav className="bg-white dark:bg-primary flex sticky h-auto top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-300 dark:border-gray-600 text-lg transition-colors duration-300">
 		{/* <div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-secondary text-md pr-10">
 						<Link to={"/"}>
 						gr1m0ire.xyz
@@ -45,10 +46,12 @@ const Navbar = () => {
 					<li key={nav.name}
 						className="">
 							<Link className="sm:block pr-2 pl-2 border text-md border-secondary rounded sm:p-1 text-secondary
-							   bg-primary duration-300 hover:opacity-90" to={`${nav.link}`}>  {nav.name}  </Link>
+							   bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 duration-300 hover:opacity-90 hover:bg-gray-200 dark:hover:bg-gray-600" to={`${nav.link}`}>  {nav.name}  </Link>
 						</li>
 					))}
-
+					<li>
+						<DarkModeToggle />
+					</li>
 				</ul>
 		</div>
 

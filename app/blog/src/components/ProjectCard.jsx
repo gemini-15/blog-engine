@@ -31,21 +31,21 @@ const ProjectCard = (projectUrl) => {
 
         
         return (
-            <div className="rounded-md p-8 m-4 bg-gray-800 flex justify-items-end">
+            <div className="rounded-md p-8 m-4 bg-secondary dark:bg-gray-700 flex justify-items-end border border-gray-300 dark:border-gray-600 transition-colors duration-300">
                 <div className="w-1/2">
-                    <div>{projectDetails.name}</div>
-                    <div className="text-gray-600">{projectDetails.description}</div>
+                    <div className="text-white dark:text-gray-100 font-semibold text-lg">{projectDetails.name}</div>
+                    <div className="text-gray-700 dark:text-gray-300">{projectDetails.description}</div>
                 </div>
                 <div className="w-1/2 flex justify-end">
                     <div className="flex items-center space-x-4">
-                        <div className="text-gray-600 ">
+                        <div className="text-gray-700 dark:text-gray-300">
                             <StarIcon className="h-6 w-6" />
                             </div>
-                        <div className="text-gray-600 pr-4">
+                        <div className="text-gray-700 dark:text-gray-300 pr-4">
                         {projectDetails.stargazers_count}
                         </div>
-                        <a href={projectDetails.html_url}>
-                            <ArrowTopRightOnSquareIcon className="h-6 w-6 text-gray-600 hover:text-gray-300"/>
+                        <a href={projectDetails.html_url} className="hover:scale-110 transition-transform duration-200">
+                            <ArrowTopRightOnSquareIcon className="h-6 w-6 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-gray-100"/>
                         </a>
                     </div>
 

@@ -14,7 +14,7 @@ const Articles = () => {
     }); 
 
     return(
-        <div className="pr-5 pl-5 pt-20 sm:pr-40 sm:pl-40">
+        <div className="pr-5 pl-5 pt-20 sm:pr-40 sm:pl-40 bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
             <TagsHandler />
             <BodyCore />
         </div>

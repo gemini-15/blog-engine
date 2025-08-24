@@ -1,5 +1,6 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
+import { DarkModeProvider } from './contexts/DarkModeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Projects from './pages/projects';
@@ -17,22 +18,24 @@ function BlogArticle() {
 
 function App() {
   return (
-  <div className='grid grid-flow-row'>
-  <Navbar />
-  <div>
-    <Routes>
-      <Route path='/' exact element={<Articles />} />
-      <Route path='/notes' element={<Projects />} />
-      <Route path='/whoami' element={<Contact />} />
-      <Route path='/articles/:slug' element={<BlogArticle />}/>
-      <Route
-                  path="*"
-                  element={<NotFound />}
-              />
-    </Routes>
-    </div>
-    <Footer />
-  </div>
+    <DarkModeProvider>
+      <div className='grid grid-flow-row bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300'>
+        <Navbar />
+        <div className="bg-white dark:bg-gray-900 min-h-screen">
+          <Routes>
+            <Route path='/' exact element={<Articles />} />
+            <Route path='/notes' element={<Projects />} />
+            <Route path='/whoami' element={<Contact />} />
+            <Route path='/articles/:slug' element={<BlogArticle />}/>
+            <Route
+                        path="*"
+                        element={<NotFound />}
+                    />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </DarkModeProvider>
   );
 }
 

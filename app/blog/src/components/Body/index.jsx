@@ -3,7 +3,7 @@ import ArticlesListing from './ArticlesListing';
 
 const BodyCore = () => {
     return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
         <ArticlesListing />
      </div>
     )

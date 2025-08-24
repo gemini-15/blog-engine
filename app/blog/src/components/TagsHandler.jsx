@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-
-
 const TagsHandler = () => {
     const [tags, setTags] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
@@ -25,8 +23,10 @@ const TagsHandler = () => {
 
     return (
         <div className="pb-5 hidden sm:block">
-            {tags.map(item => (
-                <span className="bg-secondary text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-700">{item}</span>
+            {tags.map((item, index) => (
+                <span key={index} className="bg-secondary dark:bg-gray-700 text-white dark:text-gray-100 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-600 dark:hover:bg-gray-600 transition-colors duration-200 cursor-pointer">
+                    {item}
+                </span>
             ))}
         </div>
     )

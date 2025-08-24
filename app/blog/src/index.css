@@ -8,6 +8,8 @@
   --color-secondary: #01161E;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
   margin: 0;
   /* font-family: "Fira code"; */
@@ -18,9 +20,43 @@ body {
   font-variation-settings: "wdth" 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Dark mode base styles */
+.dark body {
+  background-color: #01161E;
+  color: #E4DFDA;
+}
+
+/* Ensure light mode has white backgrounds */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Ensure dark mode overrides are visible */
+.dark .bg-white {
+  background-color: #111827 !important;
+}
+
+/* Force light mode backgrounds */
+html:not(.dark) .bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Ensure main containers have proper backgrounds */
+html:not(.dark) .min-h-screen {
+  background-color: #ffffff !important;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Smooth transitions for dark mode */
+* {
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
