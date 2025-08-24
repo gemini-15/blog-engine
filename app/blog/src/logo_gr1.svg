@@ -1,150 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1000" height="300" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title>GR1M0IRE.XYZ</title>
-  <desc>ALL-CAPS neon gradient cyberpunk wordmark with subtle glitch and Japanese sublabel. Transparent background.</desc>
+  <desc>GRIMOIRE LOGO</desc>
 
-  <!-- ========= DEFS ========= -->
   <defs>
-    <!-- Neon gradient (magenta → violet → cyan) -->
-    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#ff2ea6"/>
-      <stop offset="50%"  stop-color="#7a00ff"/>
-      <stop offset="100%" stop-color="#00e5ff"/>
+    <!-- Red gradient -->
+    <linearGradient id="animeRed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#ff1a1a"/>
+      <stop offset="50%"  stop-color="#e60000"/>
+      <stop offset="100%" stop-color="#b30000"/>
     </linearGradient>
-
-    <!-- Metallic inner gradient for strokes/fills -->
-    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="50%"  stop-color="#cfd3ff" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#9bb3ff" stop-opacity="0.75"/>
-    </linearGradient>
-
-    <!-- Soft neon outer glow -->
-    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur1"/>
-      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur2"/>
-      <feMerge>
-        <feMergeNode in="blur1"/>
-        <feMergeNode in="blur2"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Harder bloom for highlights -->
-    <filter id="bloom" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="12" result="b1"/>
-      <feColorMatrix in="b1" type="matrix"
-        values="1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                0 0 0 1 0" result="b2"/>
-      <feMerge>
-        <feMergeNode in="b2"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Scanline texture (very subtle) -->
-    <pattern id="scanlines" width="2" height="4" patternUnits="userSpaceOnUse">
-      <rect x="0" y="0" width="2" height="2" fill="#ffffff" opacity="0.05"/>
-      <rect x="0" y="2" width="2" height="2" fill="transparent"/>
-    </pattern>
-
-    <!-- Glitch RGB splits -->
-    <filter id="chromatic" x="-50%" y="-50%" width="200%" height="200%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.002 0.01" numOctaves="2" seed="7" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-
-    <!-- Futuristic bracket mark -->
-    <g id="sigil">
-      <path d="M0 0 L14 0 L14 4 L4 4 L4 20 L14 20 L14 24 L0 24 Z" fill="url(#neonGrad)"/>
-      <path d="M24 0 L10 0 L10 4 L20 4 L20 20 L10 20 L10 24 L24 24 Z" fill="url(#neonGrad)"/>
-    </g>
   </defs>
 
-  <!-- No background rect → transparent background -->
-
-  <!-- ========= WORDMARK (ALL CAPS) ========= -->
+  <!-- WORDMARK -->
   <g transform="translate(60,170)">
-    <!-- Glitch layers (cyan/magenta offsets) -->
     <text x="0" y="0"
-          font-family="Orbitron, 'Rajdhani', 'Russo One', Roboto, Arial, sans-serif"
-          font-size="132"
-          font-weight="800"
-          letter-spacing="3"
-          fill="#00e5ff"
-          opacity="0.65"
-          filter="url(#chromatic)"
-          transform="translate(2,0)">
-      GR1M0IRE
-    </text>
-    <text x="0" y="0"
-          font-family="Orbitron, 'Rajdhani', 'Russo One', Roboto, Arial, sans-serif"
-          font-size="132"
-          font-weight="800"
-          letter-spacing="3"
-          fill="#ff2ea6"
-          opacity="0.65"
-          filter="url(#chromatic)"
-          transform="translate(-2,0)">
-      GR1M0IRE
-    </text>
-
-    <!-- Main neon text -->
-    <text x="0" y="0"
-          font-family="Orbitron, 'Rajdhani', 'Russo One', Roboto, Arial, sans-serif"
-          font-size="132"
+          font-family="'Akira Expanded', 'Anton', 'Arial Black', sans-serif"
+          font-size="140"
           font-weight="900"
-          letter-spacing="3"
-          fill="url(#metalGrad)"
-          stroke="url(#neonGrad)"
-          stroke-width="3.5"
-          paint-order="stroke fill"
-          filter="url(#neonGlow)">
+          letter-spacing="-4"
+          fill="url(#animeRed)"
+          stroke="#000000ff"
+          stroke-width="6"
+          paint-order="stroke fill">
       GR1M0IRE
     </text>
-
-    <!-- .XYZ tag -->
-    <g transform="translate(720,-54)">
-      <rect x="-8" y="-26" rx="6" ry="6" width="120" height="44" fill="url(#scanlines)" opacity="0.6" filter="url(#bloom)"/>
-      <text x="0" y="0"
-            font-family="Share Tech Mono, 'JetBrains Mono', Menlo, monospace"
-            font-size="36"
-            font-weight="700"
-            letter-spacing="1"
-            fill="url(#neonGrad)"
-            stroke="#ffffff"
-            stroke-opacity="0.35"
-            stroke-width="0.6"
-            paint-order="stroke fill"
-            filter="url(#neonGlow)">
-        .XYZ
-      </text>
-    </g>
   </g>
 
-  <!-- ========= JAPANESE SUBLABEL =========
-       "グリモワール" = "Grimoire"
-  ======================================= -->
-  <g transform="translate(64,210)">
-    <use href="#sigil" transform="translate(-6,-18) scale(0.9)"/>
-    <text x="28" y="0"
+  <!-- .XYZ tag -->
+  <g transform="translate(770,170)">
+    <text x="0" y="0"
+          font-family="'Akira Expanded', 'Anton', 'Arial Black', sans-serif"
+          font-size="46"
+          font-weight="900"
+          letter-spacing="1"
+          fill="url(#animeRed)"
+          stroke="#000000ff"
+          stroke-width="3"
+          paint-order="stroke fill">
+      .XYZ
+    </text>
+  </g>
+
+  <!-- JAPANESE SUBLABEL -->
+  <g transform="translate(64,235)">
+    <text x="0" y="0"
           font-family="'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif"
-          font-size="28"
+          font-size="34"
+          font-weight="900"
           letter-spacing="2"
-          fill="url(#neonGrad)"
-          stroke="#ffffff"
-          stroke-width="0.4"
-          stroke-opacity="0.5"
-          paint-order="stroke fill"
-          filter="url(#neonGlow)">
+          fill="url(#animeRed)"
+          stroke="#000000ff"
+          stroke-width="2"
+          paint-order="stroke fill">
       グリモワール
     </text>
-  </g>
-
-  <!-- Optional divider line with glow -->
-  <g transform="translate(60,228)" filter="url(#neonGlow)">
-    <path d="M0 0 H880" stroke="url(#neonGrad)" stroke-width="2" opacity="0.7"/>
   </g>
 </svg>
