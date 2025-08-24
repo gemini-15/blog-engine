@@ -40,7 +40,7 @@ const ArticleDisplay = (props) => {
             {!loading && (
                 <div className="grid justify-items-center leading-20 align-middle">
                 <img className="object-cover mt-4 mb-4 md:h-100 h-50 md:w-300 w-150 aspect-auto rounded-lg shadow-md shadow-gray-800" src={articleData.articlereq.image_cont} />
-                <div className=" md:pr-60 md:pl-60 pl-5 pr-5 wrap-break-word max-w-screen">
+                <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 wrap-break-word max-w-screen">
                     <Markdown 
                         children={articleData.document_content}
                         components={{

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { NavLink as Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import DarkModeToggle from '../DarkModeToggle';
+import Logo from '../../logo_gr1.svg';
 
 
 const navLinks = [
@@ -27,59 +28,68 @@ const Navbar = () => {
 	}
 
 	return (
-	<nav className="bg-white dark:bg-primary flex sticky h-auto top-0 z-50 justify-center space-x-4 backdrop-blur w-full border-b border-gray-300 dark:border-gray-600 text-lg transition-colors duration-300">
-		{/* <div className="mt-5 p-0 bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-secondary text-md pr-10">
-						<Link to={"/"}>
-						gr1m0ire.xyz
-						</Link>
-		</div> */}
-
-		{/* Desktop navigation */}
-		<div className= "md:flex md:w-auto">
-				<ul className='flex justify-center rounded-lg sm:flex-row space-x-8 sm:mt-0 pt-4 pb-4'>
-					<li className="bg-clip-text text-transparent bg-gradient-to-r from-gray-500 to-secondary text-md pr-10">
-						<Link to={"/"}>
-						gr1m0ire.xyz
-						</Link>
-					</li>
-					{navLinks.map((nav, index) => (
-					<li key={nav.name}
-						className="">
-							<Link className="sm:block pr-2 pl-2 border text-md border-secondary rounded sm:p-1 text-secondary
-							   bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 duration-300 hover:opacity-90 hover:bg-gray-200 dark:hover:bg-gray-600" to={`${nav.link}`}>  {nav.name}  </Link>
-						</li>
-					))}
-					<li>
-						<DarkModeToggle />
-					</li>
-				</ul>
+	<nav className="bg-white dark:bg-primary flex sticky h-auto top-0 z-50 justify-between items-center backdrop-blur w-full border-b border-gray-300 dark:border-gray-600 text-lg transition-colors duration-300 px-6">
+		{/* Logo/Brand */}
+		<div className="flex items-center">
+			<Link to={"/"} className="flex items-center">
+				<img src={Logo} alt="gr1m0ire.xyz" className="h-12 w-auto" />
+			</Link>
 		</div>
 
-		{/* Mobile navigation */}
-		{/* <div onClick={handleNav} className='fixed sm:hidden top-0 right-0 pr-3 pt-3'>
-			{nav ? <AiOutlineClose className='text-secondary' size={20} /> : <AiOutlineMenu className='text-secondary' size={20} />}
-		</div> */}
+		{/* Desktop navigation */}
+		<div className="hidden md:flex md:w-auto">
+			<ul className='flex items-center space-x-8'>
+				{navLinks.map((navLink, index) => (
+				<li key={navLink.name}>
+					<Link className="block px-4 py-0 border text-md border-secondary rounded text-secondary
+					   bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 duration-300 hover:opacity-90 hover:bg-gray-200 dark:hover:bg-gray-600" 
+					   to={`${navLink.link}`}>
+						{navLink.name}
+					</Link>
+				</li>
+				))}
+				<li className="ml-4 py-0">
+					<DarkModeToggle />
+				</li>
+			</ul>
+		</div>
 
-		{/* Mobile navigation Menu*/}
-		{/* <ul
-			className={
-			nav
-				? 'fixed right-0 top-0  border-secondary ease-in-out duration-500 pr-3 pl-3 mt-10 w-full'
-				: 'ease-in-out duration-500 fixed right-0 hidden'
-			}
-      	>
+		{/* Mobile menu button */}
+		<div onClick={handleNav} className='md:hidden flex items-center'>
+			{nav ? <AiOutlineClose className='text-secondary' size={24} /> : <AiOutlineMenu className='text-secondary' size={24} />}
+		</div>
 
-        	{/* Mobile Navigation Items */}
-			{/* {navLinks.map(nav => (
-			<li
-				key={nav.name}
-				className='p-4 duration-300 border-[1px] m-[1px] border-gray-800 hover:text-white bg-secondary'
-			>
-				<Link onClick={handleNav} className="sm:block hover:rounded sm:p-1 text-white hover:shadow-amber-50 border-secondary 
-					hover:text-secondary duration-300 opacity-70 p-3 hover:opacity-90" to={`${nav.link}`}>{nav.name}</Link>
-			</li>
-			))} 
-      </ul> */}
+		{/* Mobile navigation Menu */}
+		{nav && (
+			<div className='md:hidden fixed inset-0 z-40 bg-black bg-opacity-50' onClick={handleNav}>
+				<div className='fixed right-0 top-0 h-full w-64 bg-white dark:bg-primary border-l border-gray-300 dark:border-gray-600 shadow-lg' onClick={(e) => e.stopPropagation()}>
+					<div className='flex justify-end p-4'>
+						<button onClick={handleNav} className='text-secondary hover:text-gray-600 dark:hover:text-gray-300'>
+							<AiOutlineClose size={24} />
+						</button>
+					</div>
+					<ul className='px-4 pb-4 space-y-3'>
+						{navLinks.map(navLink => (
+						<li key={navLink.name}>
+							<Link 
+								onClick={handleNav} 
+								className="block w-full px-4 py-3 text-left border border-secondary rounded text-secondary
+								   bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 duration-300 
+								   hover:opacity-90 hover:bg-gray-200 dark:hover:bg-gray-600" 
+								to={`${navLink.link}`}>
+								{navLink.name}
+							</Link>
+						</li>
+						))}
+						<li className='pt-2'>
+							<div className='px-4 py-2'>
+								<DarkModeToggle />
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		)}
 	</nav>)
 };
 

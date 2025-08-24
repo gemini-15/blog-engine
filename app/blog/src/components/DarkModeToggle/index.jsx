@@ -21,7 +21,7 @@ const DarkModeToggle = () => {
       <div className="flex flex-col items-center space-y-2">
         <button
           onClick={handleClick}
-          className={`p-3 rounded-lg transition-all duration-300 border-2 ${
+          className={`m-3 p-1.5 rounded-md transition-all duration-300 border-2 ${
             isDarkMode 
               ? 'bg-yellow-100 border-yellow-400 hover:bg-yellow-200' 
               : 'bg-gray-100 border-gray-400 hover:bg-gray-200'

@@ -40,7 +40,7 @@ function ArticlesListing({ selectedTags = [] }) {
             }
             catch (error) {
                  console.error(error);
-                 setError('Failed to fetch articles. Please try again.');
+                 setError('Failed to fetch articles. Something went awfully wrong.');
                  setArticles([]);
             }
             setLoading(false); 
@@ -72,7 +72,7 @@ function ArticlesListing({ selectedTags = [] }) {
                         }
                     </div>
                 ) : (
-                    <div className='grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 grid-rows-3 pb-12'>
+                    <div className='grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-12'>
                         {articles.map((item, index) => (
                         <div key={index}>
                             <Link to={`articles/${item.file_name}`}>
