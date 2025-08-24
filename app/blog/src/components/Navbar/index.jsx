@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { NavLink as Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { FaGithub, FaLinkedin, FaTwitter, FaBluesky } from 'react-icons/fa6';
 import DarkModeToggle from '../DarkModeToggle';
 import Logo from '../../logo_gr1.svg';
 
@@ -48,6 +49,27 @@ const Navbar = () => {
 					</Link>
 				</li>
 				))}
+				{/* Social Media Links */}
+				<li className="ml-4">
+					<a href="https://github.com/gemini-15" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
+						<FaGithub size={20} />
+					</a>
+				</li>
+				<li className="ml-2">
+					<a href="https://www.linkedin.com/in/yass-99637a105/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
+						<FaLinkedin size={20} />
+					</a>
+				</li>
+				<li className="ml-2">
+					<a href="https://x.com/bargachyassine" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
+						<FaTwitter size={20} />
+					</a>
+				</li>
+				<li className="ml-2">
+					<a href="https://bsky.app/profile/yassinebargach.bsky.social" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
+						<FaBluesky size={20} />
+					</a>
+				</li>
 				<li className="ml-4 py-0">
 					<DarkModeToggle />
 				</li>
@@ -61,7 +83,7 @@ const Navbar = () => {
 
 		{/* Mobile navigation Menu */}
 		{nav && (
-			<div className='md:hidden fixed inset-0 z-40 bg-black bg-opacity-50' onClick={handleNav}>
+			<div className='md:hidden fixed inset-0 z-40 bg-black ' onClick={handleNav}>
 				<div className='fixed right-0 top-0 h-full w-64 bg-white dark:bg-primary border-l border-gray-300 dark:border-gray-600 shadow-lg' onClick={(e) => e.stopPropagation()}>
 					<div className='flex justify-end p-4'>
 						<button onClick={handleNav} className='text-secondary hover:text-gray-600 dark:hover:text-gray-300'>
@@ -81,6 +103,23 @@ const Navbar = () => {
 							</Link>
 						</li>
 						))}
+						{/* Social Media Links in Mobile Menu */}
+						<li className='pt-2'>
+							<div className='px-4 py-2 flex space-x-4'>
+								<a href="https://github.com/gemini-15" target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-gray-600 dark:hover:text-gray-300 dark:text-primary transition-colors duration-200">
+									<FaGithub size={24} />
+								</a>
+								<a href="https://www.linkedin.com/in/yass-99637a105/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-gray-600 dark:hover:text-gray-300 dark:text-primary transition-colors duration-200">
+									<FaLinkedin size={24} />
+								</a>
+								<a href="https://x.com/bargachyassine" className="text-secondary hover:text-gray-600 dark:hover:text-gray-300 dark:text-primary transition-colors duration-200">
+									<FaTwitter size={24} />
+								</a>
+								<a href="https://bsky.app/profile/yassinebargach.bsky.social" className="text-secondary hover:text-gray-600 dark:hover:text-gray-300 dark:text-primary transition-colors duration-200">
+									<FaBluesky size={24} />
+								</a>
+							</div>
+						</li>
 						<li className='pt-2'>
 							<div className='px-4 py-2'>
 								<DarkModeToggle />
