@@ -1,8 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {materialOceanic} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import mermaid from 'mermaid';
+
+
+const MermaidBlock = ({ chartCode }) => {
+    const containerRef = useRef(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (!chartCode || !containerRef.current) {
+            console.log('MermaidBlock: Missing chartCode or containerRef');
+            return;
+        }
+
+        setIsLoading(true);
+        setError(null);
+
+        // Clear previous content
+        if (containerRef.current) {
+            containerRef.current.innerHTML = '';
+        }
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            securityLevel: 'loose',
+            theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
+            fontFamily: 'Arial, sans-serif',
+        });
+
+        // Render diagram using the newer async API
+        const renderDiagram = async () => {
+            try {
+                const { svg } = await mermaid.render(`mermaid-${Date.now()}`, chartCode);
+                if (containerRef.current) {
+                    containerRef.current.innerHTML = svg;
+                    console.log('MermaidBlock: Successfully rendered diagram');
+                    setIsLoading(false);
+                }
+            } catch (e) {
+                console.error('MermaidBlock: Render error:', e);
+                setError(e.message || String(e));
+                setIsLoading(false);
+            }
+        };
+
+        renderDiagram();
+    }, [chartCode]);
+
+    if (error) {
+        return (
+            <div className="my-4 border border-red-300 dark:border-red-700 rounded-lg p-4 bg-red-50 dark:bg-red-900">
+                <div className="text-red-700 dark:text-red-300">
+                    <strong>Mermaid Error:</strong><br/>
+                    {error}
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="my-4 overflow-auto border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+            {isLoading && (
+                <div className="text-center py-8 text-gray-600 dark:text-gray-400">
+                    Loading diagram...
+                </div>
+            )}
+            <div ref={containerRef} />
+        </div>
+    );
+};
 
 
 const ArticleDisplay = (props) => {
@@ -41,12 +112,19 @@ const ArticleDisplay = (props) => {
                 <div className="grid justify-items-center leading-20 align-middle">
                 <img className="object-cover mt-4 mb-4 md:h-100 h-50 md:w-300 w-150 aspect-auto rounded-lg shadow-md shadow-gray-800" src={articleData.articlereq.image_cont} />
                 <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 wrap-break-word max-w-screen">
+
                     <Markdown 
                         children={articleData.document_content}
                         components={{
                             code(props) {
                                 const {children, className, node, ...rest} = props
                                 const match = /language-(\w+)/.exec(className || '')
+                                if (match && match[1] === 'mermaid') {
+                                    console.log('Rendering MermaidBlock with code:', String(children).replace(/\n$/, ''));
+                                    return (
+                                        <MermaidBlock chartCode={String(children).replace(/\n$/, '')} />
+                                    );
+                                }
                                 return match ? (
                                     <SyntaxHighlighter
                                     {...rest}
