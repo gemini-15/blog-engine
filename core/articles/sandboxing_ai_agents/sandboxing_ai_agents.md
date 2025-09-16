@@ -6,7 +6,7 @@ tags: ['LLM', 'Agentic AI', 'cybersecurity']
 date: '2025-08-15T03:48:00+01:00'
 path_image: 'https://core.gr1m0ire.xyz/sandboxing_ai_agents/'
 image_cont: 'https://core.gr1m0ire.xyz/sandboxing_ai_agents/sand.png'
-read_time: '10 min'
+read_time: '8 min'
 ---
 
 # The importance of sandboxing and access control in AI agents
@@ -14,9 +14,6 @@ read_time: '10 min'
 I started exploring ways to isolate AI agents execution and handle access control when working for my last employer. 
 This problem came back when I started developing my own AI agent for pentesting ([called deadend-cli](https://github.com/gemini-15/deadend-cli) for when you find yourself stuck) where I needed to run Python code and give access to a shell terminal safely (especially when using pentesting tools, it really doesn't look very safe...)
 Furthermore, there have been numerous AI agents failing, and in some cases getting exploited, due to a lack of sandboxing and access control.
-We can recall:
-- Langflow exploit
-- Database wipe-out 
 
 ## Why, what and how?
 
@@ -65,7 +62,9 @@ MCPs are designed to be used locally first. Other tools, such as MCP-remote make
 In the MCP docs we find this note : 
 > **Security considerations**: Both clients and servers must handle sensitive data appropriately during sampling. Clients should implement rate limiting and validate all message content. The human-in-the-loop design ensures that server-initiated AI interactions cannot compromise security or access sensitive data without explicit user consent.
 
-MCP servers are subject to different attacks. They can have access to the filesystem, databases and other types of resources. So why don't we have more runtime isolation in there ***(legitimate question, why don't we implement sandboxing and least privilege principle here by default?)***
+MCP servers are subject to different attacks. They can have access to the filesystem, databases and other types of resources. So why don't we have more runtime isolation in there ***(legitimate question, why don't we implement sandboxing and least privilege principle here by default?)***. 
+
+MCPs should be untrusted, and must not run on an a trusted environment, thus building a dedicated workspace for the agent to communicate with the MCP servers will add better protections !  
 
 
 
@@ -81,10 +80,15 @@ However the question is: *Is it better to spend time looking at each user input 
 AI agents and MCP developments will evolve and new use-cases will be developed. 
 There are promising elements in MCP’s security design—such as supply chain protection and best practices—but history suggests they will eventually be exploited, just as early web applications were.
 So it might be more than crucial (maybe ? surely ?) to add some mechanisms that protect your data and environment even if it gets exploited. There are some interesting projects going on now that are trying to solve this predicament. 
-- [Container-use](https://github.com/dagger/container-use) for example, is made by the guys behind docker. 
-- Others, are trying to make a complete OS for AI agents (go figure, the biggest claims are the most well received these days). 
-- There is also normal sandboxing from e2b and daytona and others. 
-The market is growing but not mature enough, because each use-case is different. I've decided to do it myself in my project, because I wanted something that suited my needs and didn't depend on a specific environment, and also that most people are using the same principles (docker or MicroVMs or Webassembly), so the actual security protections is not changed (Do we really need a whole cloud infrastructure to run print(1+1) AI generated code in Python?).  
-## references
+- [Container-use](https://github.com/dagger/container-use) for example, is made by the guys behind docker, made specifically for AI agents. 
+- Normal sandboxing and isolation methods from *e2b* and *daytona* and so on.
+- And others are trying to make a complete OS for AI agents (*go big or go home!*). 
 
+The market is growing but not mature enough, because each use-case is different. I've decided to do it myself in my project, because I wanted something that suited my needs and didn't depend on a specific environment, and also that most people are using the same principles (**docker** or [**MicroVMs**](https://github.com/firecracker-microvm/firecracker) or [**Webassembly**](https://github.com/pyodide/pyodide)), so the actual security protections is not changed (*Do we really need a whole cloud infrastructure to run* `print(1+1)` *AI generated code in Python?*).  
+
+## references
 - *Unsafe at Any Speed: Abusing Python Exec for Unauth RCE in Langflow AI* - Naveen Sunkavally : [https://horizon3.ai/attack-research/disclosures/unsafe-at-any-speed-abusing-python-exec-for-unauth-rce-in-langflow-ai/](https://horizon3.ai/attack-research/disclosures/unsafe-at-any-speed-abusing-python-exec-for-unauth-rce-in-langflow-ai/)
+- *Security of AI Agents* : [https://arxiv.org/html/2406.08689v2](https://arxiv.org/html/2406.08689v2) 
+- *When Public Prompts Turn Into Local Shells: ‘CurXecute’ – RCE in Cursor via MCP Auto‑Start* : [https://www.aim.security/post/when-public-prompts-turn-into-local-shells-rce-in-cursor-via-mcp-auto-start](https://www.aim.security/post/when-public-prompts-turn-into-local-shells-rce-in-cursor-via-mcp-auto-start)
+- *AI Agents Under Threat: A Survey of Key Security
+Challenges and Future Pathways :* [https://dl.acm.org/doi/pdf/10.1145/3716628](https://dl.acm.org/doi/pdf/10.1145/3716628)

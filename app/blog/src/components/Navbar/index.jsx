@@ -51,7 +51,7 @@ const Navbar = () => {
 				))}
 				{/* Social Media Links */}
 				<li className="ml-4">
-					<a href="https://github.com/gemini-15" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
+					<a href="https://github.com/xoxruns" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
 						<FaGithub size={20} />
 					</a>
 				</li>
@@ -61,7 +61,7 @@ const Navbar = () => {
 					</a>
 				</li>
 				<li className="ml-2">
-					<a href="https://x.com/bargachyassine" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
+					<a href="https://x.com/xoxruns" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 dark:hover:text-primary transition-colors duration-200">
 						<FaTwitter size={20} />
 					</a>
 				</li>
